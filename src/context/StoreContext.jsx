@@ -72,11 +72,17 @@ export function StoreProvider({ children }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [authRedirectAction, setAuthRedirectAction] = useState(null) // e.g. 'checkout'
 
-  // Products State with localStorage persistence
+  // Products State with localStorage persistence & auto-upgrade to expanded catalog
   const [allProducts, setAllProducts] = useState(() => {
     try {
       const saved = localStorage.getItem('luxe_products')
-      return saved ? JSON.parse(saved) : initialProducts
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (Array.isArray(parsed) && parsed.length >= initialProducts.length) {
+          return parsed
+        }
+      }
+      return initialProducts
     } catch {
       return initialProducts
     }
@@ -341,6 +347,20 @@ export function StoreProvider({ children }) {
     }
   }, [adminNotifications])
 
+  // Live Serverless Backend Sync for Vercel
+  useEffect(() => {
+    try {
+      fetch('/api/products')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && data.success && Array.isArray(data.data) && data.data.length > 0) {
+            setAllProducts(data.data)
+          }
+        })
+        .catch(() => {})
+    } catch (e) {}
+  }, [])
+
   // Toast notification helper
   const showToast = (message) => {
     setToastMessage(message)
@@ -397,6 +417,15 @@ export function StoreProvider({ children }) {
       status: 'Active VIP Client'
     }
     setAdminNotifications((prev) => [notifAlert, ...prev])
+
+    // Post to live serverless users API if online
+    try {
+      fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUser)
+      }).catch(() => {})
+    } catch (e) {}
 
     // If there was a pending action (like proceed to checkout)
     if (authRedirectAction === 'checkout') {
@@ -514,6 +543,15 @@ export function StoreProvider({ children }) {
         : 'Payment settled via Stripe. Dispatched to master tailor.'
     }
     setAdminNotifications((prev) => [alertNotif, ...prev])
+
+    // Post to live serverless orders API if online
+    try {
+      fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderRecord)
+      }).catch(() => {})
+    } catch (e) {}
   }
 
   const updateOrderStatus = (orderNumber, status) => {
@@ -561,6 +599,15 @@ export function StoreProvider({ children }) {
       })
     )
     showToast(`Order ${orderNumber} verified by arifmuneeb81@gmail.com!`)
+
+    // Post to live serverless verify API if online
+    try {
+      fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderNumber, verifiedBy: 'arifmuneeb81@gmail.com' })
+      }).catch(() => {})
+    } catch (e) {}
   }
 
   const openOrderTracking = (orderNum = '') => {
