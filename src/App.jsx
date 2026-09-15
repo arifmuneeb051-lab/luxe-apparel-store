@@ -12,6 +12,7 @@ import CheckoutModal from './components/CheckoutModal'
 import AuthModal from './components/AuthModal'
 import UserProfileModal from './components/UserProfileModal'
 import AdminPortal from './components/AdminPortal'
+import TrackOrderModal from './components/TrackOrderModal'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
 import { CheckCircle2, Sparkles, Rocket } from 'lucide-react'
@@ -48,6 +49,9 @@ function StoreContent() {
 
       {/* User Profile & Past Orders Dossier */}
       <UserProfileModal />
+
+      {/* Atelier Order Tracking Modal */}
+      <TrackOrderModal />
 
       {/* Atelier Admin Management Portal */}
       <AdminPortal />

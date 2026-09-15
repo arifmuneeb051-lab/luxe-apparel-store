@@ -29,14 +29,28 @@ export function StoreProvider({ children }) {
         {
           id: 'usr-demo-01',
           name: 'Muneeb Ahmad',
-          email: 'client@luxury.com',
+          email: 'arifmuneeb81@gmail.com',
           password: 'password123',
-          phone: '+1 (555) 019-2834',
-          address: '742 Evergreen Boulevard, Penthouse 4B',
-          city: 'New York',
-          postalCode: '10001',
-          country: 'United States',
+          phone: '+92 300 1234567',
+          address: 'Executive Suite 4B, Blue Area',
+          city: 'Islamabad',
+          postalCode: '44000',
+          country: 'Pakistan',
+          role: 'admin',
           createdAt: '2026-09-01'
+        },
+        {
+          id: 'usr-demo-02',
+          name: 'Victoria Sterling',
+          email: 'v.sterling@mayfair.co.uk',
+          password: 'password123',
+          phone: '+44 20 7946 0912',
+          address: '14 Berkeley Square, Mayfair',
+          city: 'London',
+          postalCode: 'W1J 5AW',
+          country: 'United Kingdom',
+          role: 'client',
+          createdAt: '2026-09-05'
         }
       ]
     } catch {
@@ -77,15 +91,92 @@ export function StoreProvider({ children }) {
         {
           orderNumber: 'LX-2026-9041',
           date: 'September 12, 2026',
-          userId: 'usr-demo-01',
-          customerName: 'Muneeb Ahmad',
-          email: 'client@luxury.com',
-          shippingAddress: '742 Evergreen Boulevard, Penthouse 4B, New York, USA',
+          userId: 'usr-demo-02',
+          customerName: 'Victoria Sterling',
+          email: 'v.sterling@mayfair.co.uk',
+          phone: '+44 20 7946 0912',
+          shippingAddress: '14 Berkeley Square, Mayfair, London, W1J 5AW, United Kingdom',
           items: [
-            { id: 'luxe-01', title: 'Double-Faced Cashmere Overcoat', selectedSize: 'M', quantity: 1, price: 890 }
+            {
+              id: 'luxe-01',
+              title: 'Double-Faced Cashmere Overcoat',
+              selectedSize: 'M',
+              selectedColor: 'Camel Tan',
+              quantity: 1,
+              price: 890
+            }
           ],
           total: 890,
-          status: 'White-Glove Dispatched'
+          paymentMethod: 'STRIPE',
+          paymentStatus: 'Paid',
+          status: 'In Transit',
+          verificationStatus: 'Verified by Admin',
+          verifiedBy: 'arifmuneeb81@gmail.com',
+          verifiedAt: 'September 12, 2026, 11:30 AM',
+          adminNotifiedEmail: 'arifmuneeb81@gmail.com',
+          tracking: {
+            courier: 'Luxe Atelier White-Glove Logistics',
+            trackingNumber: 'TRK-LX-9041-GB',
+            estimatedDelivery: 'September 16, 2026',
+            currentLocation: 'London Central Logistics Hub',
+            timeline: [
+              { status: 'Order Placed', time: 'Sep 12, 09:14 AM', completed: true, note: 'Order received in atelier system.' },
+              { status: 'Admin Verified & Confirmed', time: 'Sep 12, 11:30 AM', completed: true, note: 'Verified by management (arifmuneeb81@gmail.com).' },
+              { status: 'Atelier Tailoring & Quality Check', time: 'Sep 13, 02:45 PM', completed: true, note: 'Hand-steamed and encased in garment box.' },
+              { status: 'Dispatched via White-Glove Courier', time: 'Sep 14, 08:00 AM', completed: true, note: 'Departed Florence atelier to London hub.' },
+              { status: 'Out for Handover Delivery', time: 'Pending', completed: false, note: 'Scheduled for signature handover.' },
+              { status: 'Delivered to Residence', time: 'Pending', completed: false, note: 'White-glove private reception.' }
+            ]
+          }
+        },
+        {
+          orderNumber: 'LX-2026-8819',
+          date: 'September 14, 2026',
+          userId: 'usr-demo-01',
+          customerName: 'Alexander Vance',
+          email: 'avance@nycatelier.com',
+          phone: '+1 (555) 019-2834',
+          shippingAddress: '432 Park Avenue, Penthouse 72, New York, 10022, United States',
+          items: [
+            {
+              id: 'luxe-02',
+              title: 'Structured Italian Wool Tuxedo Blazer',
+              selectedSize: '42R',
+              selectedColor: 'Midnight Black',
+              quantity: 1,
+              price: 750
+            },
+            {
+              id: 'luxe-06',
+              title: 'Monogram Calfskin Atelier Briefcase',
+              selectedSize: 'One Size',
+              selectedColor: 'Espresso Brown',
+              quantity: 1,
+              price: 940
+            }
+          ],
+          total: 1690,
+          paymentMethod: 'CASH ON DELIVERY (COD)',
+          paymentStatus: 'Pending Handover',
+          status: 'Pending Admin Verification',
+          verificationStatus: 'Awaiting Admin Review',
+          verifiedBy: null,
+          verifiedAt: null,
+          adminNotifiedEmail: 'arifmuneeb81@gmail.com',
+          tracking: {
+            courier: 'Luxe Private Chauffeur Dispatch',
+            trackingNumber: 'TRK-LX-8819-US',
+            estimatedDelivery: 'September 18, 2026',
+            currentLocation: 'New York Atelier Flagship',
+            timeline: [
+              { status: 'Order Placed', time: 'Sep 14, 03:20 PM', completed: true, note: 'Cash on Delivery request logged.' },
+              { status: 'Admin Verified & Confirmed', time: 'Pending', completed: false, note: 'Admin arifmuneeb81@gmail.com confirmation pending.' },
+              { status: 'Atelier Tailoring & Packaging', time: 'Pending', completed: false, note: 'Waiting for confirmation.' },
+              { status: 'Dispatched via White-Glove Courier', time: 'Pending', completed: false, note: 'Awaiting dispatch.' },
+              { status: 'Out for Handover Delivery', time: 'Pending', completed: false, note: 'Payment collected upon handover.' },
+              { status: 'Delivered to Residence', time: 'Pending', completed: false, note: 'Order complete.' }
+            ]
+          }
         }
       ]
     } catch {
@@ -97,7 +188,8 @@ export function StoreProvider({ children }) {
   const [cartItems, setCartItems] = useState(() => {
     try {
       const saved = localStorage.getItem('luxe_cart')
-      return saved ? JSON.parse(saved) : []
+      if (saved) return JSON.parse(saved)
+      return []
     } catch {
       return []
     }
@@ -106,7 +198,8 @@ export function StoreProvider({ children }) {
   const [wishlist, setWishlist] = useState(() => {
     try {
       const saved = localStorage.getItem('luxe_wishlist')
-      return saved ? JSON.parse(saved) : []
+      if (saved) return JSON.parse(saved)
+      return []
     } catch {
       return []
     }
@@ -118,6 +211,45 @@ export function StoreProvider({ children }) {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [isAdminOpen, setIsAdminOpen] = useState(false)
   const [toastMessage, setToastMessage] = useState(null)
+
+  // Tracking Modal State
+  const [isTrackOrderOpen, setIsTrackOrderOpen] = useState(false)
+  const [trackingOrderNumber, setTrackingOrderNumber] = useState('')
+
+  // Admin Notifications for arifmuneeb81@gmail.com
+  const [adminNotifications, setAdminNotifications] = useState(() => {
+    try {
+      const saved = localStorage.getItem('luxe_admin_notifications')
+      if (saved) return JSON.parse(saved)
+      return [
+        {
+          id: 'notif-001',
+          type: 'NEW_ORDER_ALERT',
+          recipientEmail: 'arifmuneeb81@gmail.com',
+          title: 'New High-Value Order Placed: #LX-2026-8819 ($1,690)',
+          timestamp: '2026-09-14T15:20:00.000Z',
+          customer: 'Alexander Vance (avance@nycatelier.com)',
+          paymentMethod: 'CASH ON DELIVERY (COD)',
+          itemsCount: 2,
+          total: 1690,
+          status: 'Awaiting Admin Verification',
+          actionRequired: 'Verify client address and confirm order fulfillment.'
+        },
+        {
+          id: 'notif-002',
+          type: 'NEW_USER_REGISTRATION',
+          recipientEmail: 'arifmuneeb81@gmail.com',
+          title: 'New Maison Client Registered: Victoria Sterling',
+          timestamp: '2026-09-05T12:15:00.000Z',
+          customer: 'Victoria Sterling (v.sterling@mayfair.co.uk)',
+          location: 'London, United Kingdom',
+          status: 'Active VIP Client'
+        }
+      ]
+    } catch {
+      return []
+    }
+  })
 
   // Coupons
   const [coupons, setCoupons] = useState(() => {
@@ -201,6 +333,14 @@ export function StoreProvider({ children }) {
     }
   }, [wishlist])
 
+  useEffect(() => {
+    try {
+      localStorage.setItem('luxe_admin_notifications', JSON.stringify(adminNotifications))
+    } catch (e) {
+      console.error(e)
+    }
+  }, [adminNotifications])
+
   // Toast notification helper
   const showToast = (message) => {
     setToastMessage(message)
@@ -236,6 +376,7 @@ export function StoreProvider({ children }) {
       city: city || '',
       postalCode: postalCode || '',
       country: country || 'United States',
+      role: 'client',
       createdAt: new Date().toISOString().split('T')[0]
     }
 
@@ -243,6 +384,19 @@ export function StoreProvider({ children }) {
     setCurrentUser(newUser)
     setIsAuthModalOpen(false)
     showToast(`Welcome to the House of Luxe, ${newUser.name}!`)
+
+    // Notify Admin arifmuneeb81@gmail.com
+    const notifAlert = {
+      id: `notif-${Date.now()}`,
+      type: 'NEW_USER_REGISTRATION',
+      recipientEmail: 'arifmuneeb81@gmail.com',
+      title: `New Client Registered: ${newUser.name}`,
+      timestamp: new Date().toISOString(),
+      customer: `${newUser.name} (${newUser.email})`,
+      location: `${newUser.city || 'Undisclosed'}, ${newUser.country}`,
+      status: 'Active VIP Client'
+    }
+    setAdminNotifications((prev) => [notifAlert, ...prev])
 
     // If there was a pending action (like proceed to checkout)
     if (authRedirectAction === 'checkout') {
@@ -315,12 +469,51 @@ export function StoreProvider({ children }) {
 
   // Orders Management
   const addOrder = (newOrder) => {
+    const isCOD = (newOrder.paymentMethod || '').toUpperCase().includes('COD') || (newOrder.paymentMethod || '').toUpperCase().includes('CASH')
     const orderRecord = {
       ...newOrder,
-      userId: currentUser ? currentUser.id : 'guest',
-      status: 'Processing'
+      userId: currentUser ? currentUser.id : (newOrder.userId || 'guest'),
+      paymentMethod: newOrder.paymentMethod || 'STRIPE',
+      paymentStatus: isCOD ? 'Pending Handover' : 'Paid via Stripe',
+      status: newOrder.status || (isCOD ? 'Pending Admin Verification' : 'White-Glove Dispatched'),
+      verificationStatus: newOrder.verificationStatus || (isCOD ? 'Awaiting Admin Review' : 'Verified by Admin'),
+      verifiedBy: isCOD ? null : 'arifmuneeb81@gmail.com',
+      verifiedAt: isCOD ? null : new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      adminNotifiedEmail: 'arifmuneeb81@gmail.com',
+      tracking: newOrder.tracking || {
+        courier: isCOD ? 'Luxe Private Chauffeur Dispatch' : 'Luxe Atelier White-Glove Logistics',
+        trackingNumber: `TRK-LX-${Math.floor(1000 + Math.random() * 9000)}-${isCOD ? 'COD' : 'ST'}`,
+        estimatedDelivery: '3-5 Business Days',
+        currentLocation: 'Atelier Central Logistics Hub',
+        timeline: [
+          { status: 'Order Placed', time: newOrder.date || 'Today', completed: true, note: `${newOrder.paymentMethod || 'Order'} logged in atelier system.` },
+          { status: 'Admin Verified & Confirmed', time: isCOD ? 'Pending' : 'Confirmed', completed: !isCOD, note: 'Verification by management (arifmuneeb81@gmail.com).' },
+          { status: 'Atelier Tailoring & Packaging', time: isCOD ? 'Pending' : 'In Progress', completed: !isCOD, note: 'Garment preparation in atelier.' },
+          { status: 'Dispatched via White-Glove Courier', time: 'Scheduled', completed: false, note: 'Climate-controlled insured transit.' },
+          { status: 'Out for Handover Delivery', time: 'Pending', completed: false, note: isCOD ? 'Payment collected upon handover.' : 'Signature handover.' },
+          { status: 'Delivered to Residence', time: 'Pending', completed: false, note: 'White-glove private reception.' }
+        ]
+      }
     }
     setOrders((prev) => [orderRecord, ...prev])
+
+    // Push alert to admin notifications for arifmuneeb81@gmail.com
+    const alertNotif = {
+      id: `notif-${Date.now()}`,
+      type: 'NEW_ORDER_ALERT',
+      recipientEmail: 'arifmuneeb81@gmail.com',
+      title: `New Order Placed: #${orderRecord.orderNumber} (${formatPrice(orderRecord.total)})`,
+      timestamp: new Date().toISOString(),
+      customer: `${orderRecord.customerName} (${orderRecord.email})`,
+      paymentMethod: orderRecord.paymentMethod,
+      itemsCount: orderRecord.items.length,
+      total: orderRecord.total,
+      status: orderRecord.verificationStatus,
+      actionRequired: isCOD
+        ? 'Awaiting Admin arifmuneeb81@gmail.com review and verification before dispatch.'
+        : 'Payment settled via Stripe. Dispatched to master tailor.'
+    }
+    setAdminNotifications((prev) => [alertNotif, ...prev])
   }
 
   const updateOrderStatus = (orderNumber, status) => {
@@ -330,6 +523,49 @@ export function StoreProvider({ children }) {
       )
     )
     showToast(`Order ${orderNumber} status set to: ${status}`)
+  }
+
+  const verifyOrder = (orderNumber) => {
+    const timeNow = new Date().toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    }) + ', ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
+    setOrders((prev) =>
+      prev.map((ord) => {
+        if (ord.orderNumber === orderNumber) {
+          const updatedTimeline = (ord.tracking?.timeline || []).map((step) => {
+            if (step.status.includes('Admin Verified') || step.status.includes('Verified')) {
+              return { ...step, completed: true, time: timeNow, note: 'Verified and confirmed by arifmuneeb81@gmail.com' }
+            }
+            if (step.status.includes('Tailoring')) {
+              return { ...step, completed: true, time: 'In Progress' }
+            }
+            return step
+          })
+
+          return {
+            ...ord,
+            verificationStatus: 'Verified by Admin',
+            verifiedBy: 'arifmuneeb81@gmail.com',
+            verifiedAt: timeNow,
+            status: ord.status === 'Pending Admin Verification' ? 'White-Glove Dispatched' : ord.status,
+            tracking: {
+              ...ord.tracking,
+              timeline: updatedTimeline.length > 0 ? updatedTimeline : undefined
+            }
+          }
+        }
+        return ord
+      })
+    )
+    showToast(`Order ${orderNumber} verified by arifmuneeb81@gmail.com!`)
+  }
+
+  const openOrderTracking = (orderNum = '') => {
+    if (orderNum) setTrackingOrderNumber(orderNum)
+    setIsTrackOrderOpen(true)
   }
 
   // Coupons
@@ -516,6 +752,14 @@ export function StoreProvider({ children }) {
         setIsCheckoutOpen,
         isAdminOpen,
         setIsAdminOpen,
+        // Order Tracking Modal State
+        isTrackOrderOpen,
+        setIsTrackOrderOpen,
+        trackingOrderNumber,
+        setTrackingOrderNumber,
+        openOrderTracking,
+        verifyOrder,
+        adminNotifications,
         addToCart,
         removeFromCart,
         updateQuantity,

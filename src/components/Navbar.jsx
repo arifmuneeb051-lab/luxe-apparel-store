@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Search, Heart, ShoppingBag, Menu, X, ArrowRight, User, Shield } from 'lucide-react'
+import { Search, Heart, ShoppingBag, Menu, X, ArrowRight, User, Shield, Truck } from 'lucide-react'
 import { useStore } from '../context/StoreContext'
 
 export default function Navbar() {
@@ -17,7 +17,8 @@ export default function Navbar() {
     setIsAuthModalOpen,
     setAuthModalMode,
     setIsProfileOpen,
-    setIsAdminOpen
+    setIsAdminOpen,
+    setIsTrackOrderOpen
   } = useStore()
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -115,6 +116,19 @@ export default function Navbar() {
                   {wishlistCount}
                 </span>
               )}
+            </button>
+
+            {/* TRACK ORDER BUTTON */}
+            <button
+              onClick={() => setIsTrackOrderOpen(true)}
+              className="p-2 text-[#CCCCCC] hover:text-[#D4AF37] transition flex items-center gap-1.5"
+              title="Track Consignment & Live Status"
+              aria-label="Track Order"
+            >
+              <Truck className="w-5 h-5" />
+              <span className="hidden xl:inline text-[11px] tracking-widest uppercase font-medium text-[#AAAAAA] hover:text-white">
+                Track
+              </span>
             </button>
 
             {/* USER ACCOUNT / ID BUTTON */}
@@ -284,9 +298,20 @@ export default function Navbar() {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false)
+                    setIsTrackOrderOpen(true)
+                  }}
+                  className="text-left text-xs tracking-widest uppercase py-2 text-[#CCCCCC] hover:text-[#D4AF37] flex items-center gap-2 pt-4 border-t border-[#222222]"
+                >
+                  <Truck className="w-4 h-4 text-[#D4AF37]" />
+                  <span>Track Consignment / Orders</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false)
                     setIsAdminOpen(true)
                   }}
-                  className="text-left text-xs tracking-widest uppercase py-2 text-[#888888] hover:text-[#D4AF37] flex items-center gap-2 pt-4 border-t border-[#222222]"
+                  className="text-left text-xs tracking-widest uppercase py-2 text-[#888888] hover:text-[#D4AF37] flex items-center gap-2"
                 >
                   <Shield className="w-4 h-4" />
                   <span>Atelier Admin Portal</span>

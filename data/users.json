@@ -1,0 +1,32 @@
+[
+  {
+    "id": "usr-demo-01",
+    "name": "Muneeb Ahmad",
+    "email": "arifmuneeb81@gmail.com",
+    "phone": "+92 300 1234567",
+    "address": "Executive Suite 4B, Blue Area",
+    "city": "Islamabad",
+    "postalCode": "44000",
+    "country": "Pakistan",
+    "role": "admin",
+    "createdAt": "2026-09-01T10:00:00.000Z",
+    "lastLogin": "2026-09-15T15:30:00.000Z",
+    "totalOrders": 1,
+    "totalSpent": 890
+  },
+  {
+    "id": "usr-demo-02",
+    "name": "Victoria Sterling",
+    "email": "v.sterling@mayfair.co.uk",
+    "phone": "+44 20 7946 0912",
+    "address": "14 Berkeley Square, Mayfair",
+    "city": "London",
+    "postalCode": "W1J 5AW",
+    "country": "United Kingdom",
+    "role": "client",
+    "createdAt": "2026-09-05T12:15:00.000Z",
+    "lastLogin": "2026-09-14T18:20:00.000Z",
+    "totalOrders": 1,
+    "totalSpent": 890
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "notif-001",
+    "type": "NEW_ORDER_ALERT",
+    "recipientEmail": "arifmuneeb81@gmail.com",
+    "title": "New High-Value Order Placed: #LX-2026-8819 ($1,690)",
+    "timestamp": "2026-09-14T15:20:00.000Z",
+    "customer": "Alexander Vance (avance@nycatelier.com)",
+    "paymentMethod": "CASH ON DELIVERY (COD)",
+    "itemsCount": 2,
+    "total": 1690,
+    "status": "Awaiting Admin Verification",
+    "actionRequired": "Verify client address and confirm order fulfillment."
+  },
+  {
+    "id": "notif-002",
+    "type": "NEW_USER_REGISTRATION",
+    "recipientEmail": "arifmuneeb81@gmail.com",
+    "title": "New Maison Client Registered: Victoria Sterling",
+    "timestamp": "2026-09-05T12:15:00.000Z",
+    "customer": "Victoria Sterling (v.sterling@mayfair.co.uk)",
+    "location": "London, United Kingdom",
+    "status": "Active VIP Client"
+  }
+]

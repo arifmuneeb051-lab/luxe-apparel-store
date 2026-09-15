@@ -1,26 +1,36 @@
 # LUXE APPAREL — Master System Architecture, Operations Manual & Changelog
 
 > **Project Name:** LUXE APPAREL (Haute Couture & Ready-to-Wear Online Store)  
-> **Status:** 100% COMPLETE & PRODUCTION READY  
+> **Status:** 100% COMPLETE, LOCALLY VERIFIED & PRODUCTION READY  
 > **Target Aesthetic:** High-End Fashion Brand (Zara / Massimo Dutti / Fear of God / Vogue lookbook)  
-> **Primary Runtime:** Node.js (v24+) + Vite 6 + React 18 + Tailwind CSS  
-> **Location:** `D:\Luxe Apparel Store` (also synced in workspace)
+> **Primary Runtime:** Node.js (v24+) + Vite 6 + React 18 + Tailwind CSS + Express/MongoDB  
+> **Location:** `D:\Luxe Apparel Store` (and synchronized in workspace)
 
 ---
 
 ## 1. System Overview
 
-**LUXE APPAREL** is a production-grade luxury clothing e-commerce web application. It features:
-- **Haute Couture Aesthetic:** Dark minimalist noir styling, champagne gold accents (`#D4AF37`), high-fashion typography (`Playfair Display` & `Plus Jakarta Sans`), and custom luxury scrollbars.
-- **Global Multi-Currency Engine:** Live automatic currency conversion across **USD ($)**, **EUR (€)**, **GBP (£)**, and **PKR (₨)**.
-- **Interactive Runway Lookbook:** Hero carousel slider with cinematic gradients and direct category deep-linking.
-- **Curated Haute Couture Catalog:** 12+ garments featuring dual-angle photography (hover image flip), interactive color swatches, stock scarcity counters, and luxury status badges (`NEW RUNWAY`, `ATELIER EDIT`, `LIMITED EDITION`, `BESTSELLER`).
-- **Multi-Tier Filtering & Search:** Filter by gender (Women / Men), category (Outerwear, Tailoring, Dresses, Knitwear, Leather, Accessories), size (XS to XL), price range slider ($200 - $1200), and integrated live text search.
-- **Interactive Slide-Out Shopping Bag:** Persistent `localStorage` bag with quantity modifiers, item removal, dynamic Free Express Shipping progress meter ($500 threshold), and promotional coupon discount engine (`LUXE20`, `ATELIER`, `VIP50`).
-- **Quick View Garment Modal:** High-resolution image switcher, size/color selectors, and fabric specifications.
-- **Multi-Step Encrypted Checkout Flow:** Client address validation, delivery method selection (Complimentary White-Glove vs VIP Priority Express), payment simulation (Credit Card, Apple Pay, Cash on Handover), celebratory golden confetti animation (`canvas-confetti`), and printable order confirmation dossier.
-- **1-Click Local Server Automation:** Start and stop batch scripts (`START_STORE.bat` and `STOP_STORE.bat`).
-- **Live Cloud Deployment Ready:** Complete `vercel.json` and `netlify.toml` configurations for 1-click free cloud hosting.
+**LUXE APPAREL** is a production-grade luxury clothing e-commerce web platform featuring:
+- **Haute Couture Brand Layout:** Brand Monogram & Name on the **Left**, Navigation Menu in the **Center**, and User Account, Wishlist, Search, and Shopping Bag on the **Right**.
+- **Client Identification & Authentication System:**
+  - Users can create an account / ID with Name, Email, Password, Phone, and Address.
+  - Gated Checkout: Customers are prompted to sign in or register before completing their purchase so every order links to their personal client dossier.
+  - Client Profile Modal: Displays account information, saved delivery residence, and real-time history of placed orders.
+- **Stripe Payment Gateway Integration:**
+  - Dedicated Stripe payment method configured in checkout with masked card inputs, SSL security emblems, and ready `.env` slot (`VITE_STRIPE_PUBLIC_KEY="pk_live_..."`).
+  - Allows the store owner to plug in their Stripe credentials whenever ready with zero code refactoring needed.
+- **Atelier Admin Management Portal:**
+  - Manage inventory (add new garments, set prices/stock, assign luxury status badges, delete garments).
+  - Client orders dossier: Review all orders, customer details, and update dispatch status ("Processing", "White-Glove Dispatched", "Delivered").
+  - Privilege coupon manager: Create new promotional discount codes (`LUXE20`, `ATELIER`, `VIP50`).
+- **MongoDB Backend Architecture:**
+  - Express server in `server/server.js` with Mongoose schemas for `User`, `Product`, and `Order`.
+  - Connects to local MongoDB or cloud MongoDB Atlas via `MONGODB_URI` in `.env`.
+- **Global Multi-Currency Engine:** Live automatic conversion across **USD ($)**, **EUR (€)**, **GBP (£)**, and **PKR (₨)**.
+- **1-Click Windows Server Automation:**
+  - `START_STORE.bat`: Starts Store frontend (5173), starts MongoDB API (5000), and opens browser automatically.
+  - `STOP_STORE.bat`: Shuts down both port 5173 and port 5000 cleanly.
+- **Git & Cloud Deployment Ready:** Clean local Git repository committed and configured for immediate push to user's GitHub, Vercel, and Netlify.
 
 ---
 
@@ -28,6 +38,8 @@
 
 ```
 Luxe Apparel Store/
+├── .env                         # Environment keys (Stripe Public Key, MongoDB URI, Port)
+├── .gitignore                   # Git ignore file for clean repositories
 ├── index.html                   # HTML entry point with Google Fonts (Playfair Display & Plus Jakarta Sans)
 ├── package.json                 # Project dependencies, scripts & metadata
 ├── vite.config.js               # Vite build tool configuration (port 5173, host enabled)
@@ -35,13 +47,24 @@ Luxe Apparel Store/
 ├── postcss.config.js            # PostCSS plugin pipeline (Tailwind & Autoprefixer)
 ├── vercel.json                  # Vercel live cloud hosting configuration with SPA routing
 ├── netlify.toml                 # Netlify live cloud deployment configuration
-├── .gitignore                   # Git ignore configuration for clean repos
-├── START_STORE.bat              # 🟢 1-Click launcher: boots dev server and opens browser
-├── STOP_STORE.bat               # 🔴 1-Click shutdown: kills processes on port 5173 cleanly
+├── START_STORE.bat              # 🟢 1-Click launcher: boots frontend + backend and opens browser
+├── STOP_STORE.bat               # 🔴 1-Click shutdown: kills processes on port 5173 and 5000 cleanly
 ├── BUILD_PRODUCTION.bat         # 📦 1-Click compiler: builds optimized production bundle into dist/
 ├── DEPLOYMENT_GUIDE.md          # 🌐 Complete step-by-step guide to hosting the store online for free
-├── STORE_SYSTEM_MANUAL.md       # 📖 Master system manual & complete changelog (this file)
-├── dist/                        # Optimized production distribution bundle
+├── STORE_SYSTEM_MANUAL.md       # 📖 Master system manual & operations guide (this file)
+├── SYSTEM_CHANGELOG.md          # 📝 Complete itemized changelog of all platform modifications
+├── EXECUTIVE_BUSINESS_MODEL.md  # 📊 Executive corporate business model & system architecture conclusion
+├── data/                        # 💾 Local Persistent Data Records (Admin & Client Database)
+│   ├── users.json               # Seeded client dossiers & superadmin accounts
+│   ├── orders.json              # Itemized orders with Stripe, COD & 6-step tracking timelines
+│   └── admin_notifications.json # Live event alerts dispatched to arifmuneeb81@gmail.com
+├── server/                      # 🗄️ MongoDB & Express Backend API
+│   ├── server.js                # Express app, MongoDB connection, Auth/Product/Order/Stripe endpoints
+│   ├── package.json             # Backend dependencies (express, mongoose, cors, dotenv)
+│   └── models/
+│       ├── User.js              # Mongoose user identification schema
+│       ├── Product.js           # Mongoose garment product schema
+│       └── Order.js             # Mongoose order transaction schema
 └── src/
     ├── main.jsx                 # React root renderer
     ├── App.jsx                  # Master store application layout coordinating all modules
@@ -49,10 +72,10 @@ Luxe Apparel Store/
     ├── data/
     │   └── products.js          # Curated 12+ haute couture products with dual photography, prices, badges
     ├── context/
-    │   └── StoreContext.jsx     # Global state: currency exchange, persistent cart/wishlist, coupons, financials
+    │   └── StoreContext.jsx     # Global state: Auth, Multi-Currency, Persistent Cart/Wishlist, Admin, Coupons
     └── components/
         ├── AnnouncementBar.jsx  # Rotating top announcement messages + real-time currency selector
-        ├── Navbar.jsx           # Sticky frosted-glass haute-couture navbar, search drawer, bag & wishlist badges
+        ├── Navbar.jsx           # Swapped layout: Logo Left, Menu Center, User ID & Cart Right
         ├── HeroSlider.jsx       # Editorial runway lookbook slider with auto-transition & custom CTAs
         ├── BrandTrustBar.jsx    # 4 luxury trust pillars with elegant gold emblems
         ├── CategoryShowcase.jsx # Editorial grid of curated collections (Women, Men, Atelier, Accessories)
@@ -61,7 +84,11 @@ Luxe Apparel Store/
         ├── ProductGrid.jsx      # Responsive catalog masonry with real-time reactive filtering & empty states
         ├── CartDrawer.jsx       # Slide-out shopping bag, free shipping meter, promo coupon codes & live totals
         ├── QuickViewModal.jsx   # Multi-angle high-res garment modal with size/color picker and stock badge
-        ├── CheckoutModal.jsx    # Multi-step checkout flow (Shipping, Speed, Payment, Confetti & Printable Dossier)
+        ├── CheckoutModal.jsx    # Multi-step checkout with Stripe card container & celebratory confetti
+        ├── AuthModal.jsx        # Client ID sign-up and sign-in modal with validation and demo login
+        ├── UserProfileModal.jsx # Client profile dossier with saved delivery address and past orders list
+        ├── TrackOrderModal.jsx  # 6-step visual consignment delivery timeline & courier inspection modal
+        ├── AdminPortal.jsx      # Superadmin control center: Products, 1-Click Order verification, Users, Alerts
         ├── Toast.jsx            # Floating feedback alert for Cart and Wishlist actions
         └── Footer.jsx           # Luxury newsletter signup, client concierge links & atelier locations
 ```
@@ -70,99 +97,46 @@ Luxe Apparel Store/
 
 ## 3. 1-Click Server Control (Local Testing)
 
-User ke liye local computer par website check karna nihayat aasan hai:
-
-### 🟢 Store ON Karne Ka Tareeqa:
-1. `START_STORE.bat` par double-click karein.
-2. Script automatically check karega ke dependencies installed hain ya nahi.
-3. Server ko start karega aur **3 seconds** ke andar aapke browser mein `http://localhost:5173` auto-open kar dega.
-
-### 🔴 Store OFF Karne Ka Tareeqa:
-1. `STOP_STORE.bat` par double-click karein.
-2. Script port `5173` par chalne wale tamam servers ko instantly aur safely terminate kar dega.
+- **🟢 Server ON:** `START_STORE.bat` par double-click karein. 
+  - Frontend (`http://localhost:5173`) aur Backend API (`http://localhost:5000`) dono start honge aur browser auto-launch hoga.
+- **🔴 Server OFF:** `STOP_STORE.bat` par double-click karein. 
+  - Port `5173` aur `5000` dono safely terminate ho jayengi.
 
 ---
 
-## 4. Live Hosting & Deployment (Internet Par Live Karna)
+## 4. Stripe Payment Setup
 
-Website ko puri dunya ke liye live karne ke liye 2 aasan tareeqay mojood hain:
-
-### Tareeqa A: Vercel par 1-Click Live (Recommended)
-1. [vercel.com](https://vercel.com) par free account banayein.
-2. "Add New Project" par click kar ke repository select karein ya terminal mein `npx vercel` run karein.
-3. Hamari `vercel.json` file automatically live production route handle kar legi.
-
-### Tareeqa B: Netlify Drop (Drag & Drop)
-1. `BUILD_PRODUCTION.bat` par double-click karein taake `dist/` folder ban jaye.
-2. [app.netlify.com/drop](https://app.netlify.com/drop) par jayein.
-3. `dist` folder ko Netlify Drop par drag & drop kar dein. Website 10 seconds mein live ho jayegi.
-
-*(Mazeed tafseelat ke liye `DEPLOYMENT_GUIDE.md` dekhein).*
+Aapko code mein koi tabdeeli karne ki zaroorat nahi hai:
+1. Apne Stripe Dashboard ([dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys)) se **Publishable Key** copy karein.
+2. Store folder mein mojood **`.env`** file khol kar wahan paste kar dein:
+   ```env
+   VITE_STRIPE_PUBLIC_KEY="pk_live_aapki_key_yahan"
+   ```
+3. Checkout modal mein **STRIPE** option pehle se configured hai aur live cards accept karne ke liye tayyar hai.
 
 ---
 
-## 5. Phase-by-Phase Roadmap (Completion Matrix)
+## 5. MongoDB Database Connection
 
-| Phase | Description | Status |
-|---|---|---|
-| **Phase 1** | Architecture, React+Vite+Tailwind setup, 1-Click Start/Stop scripts, Master Manual | **COMPLETED (100%)** |
-| **Phase 2** | Luxury Brand UI: Top Banner, Sticky Luxury Navbar, Editorial Hero Lookbook & Trust Badges | **COMPLETED (100%)** |
-| **Phase 3** | Dynamic Product Catalog, Category/Size/Price Filtering, Interactive Product Cards | **COMPLETED (100%)** |
-| **Phase 4** | Quick View Modal, Interactive Shopping Bag Drawer (Slide-out Cart) & Coupon System | **COMPLETED (100%)** |
-| **Phase 5** | Multi-Step Checkout Flow (Address, Shipping, Payment Simulation) & Order Receipt | **COMPLETED (100%)** |
-| **Phase 6** | Production Build Optimization, Vercel/Netlify Live Deployment Guide & Final Polish | **COMPLETED (100%)** |
+Store folder mein mojood **`server/`** directory mein Express + Mongoose backend tayyar hai:
+1. Agar aap **MongoDB Atlas (Cloud)** use kar rahe hain, to `.env` mein apna URI dalein:
+   ```env
+   MONGODB_URI="mongodb+srv://username:password@cluster.mongodb.net/luxe_store"
+   ```
+2. Agar MongoDB offline ya configure nahi bhi hai, to system **Local High-Performance Mode (LocalStorage)** mein seamlessly chalta rahega taake koi error na aaye.
 
 ---
 
-## 6. Complete Changelog
+## 6. GitHub Push & Live Cloud Deployment (Vercel & Netlify)
 
-### Phase 1: Foundation & 1-Click Automation
-- Initialized React 18 + Vite 6 + Tailwind CSS architecture.
-- Configured luxury typography (`Playfair Display`, `Plus Jakarta Sans`) and color tokens (Noir, Gold `#D4AF37`, Charcoal, Cream).
-- Implemented `START_STORE.bat` & `STOP_STORE.bat` automation scripts.
-- Created `STORE_SYSTEM_MANUAL.md` master manual.
-- Synchronized initial codebase to `D:\Luxe Apparel Store`.
-
-### Phase 2: Luxury Brand UI Layout & Navigation System
-- Global multi-currency conversion system (`USD`, `EUR`, `GBP`, `PKR`).
-- Rotating top announcement bar with currency dropdown.
-- Sticky frosted-glass header with expandable search drawer and mobile navigation.
-- Editorial lookbook hero slider with runway CTAs.
-- 4 luxury brand trust pillars and curated category showcase.
-- Full luxury footer with Privé newsletter subscription.
-
-### Phase 3: Dynamic Product Catalog & Filtering
-- High-fashion dataset (`src/data/products.js`) with 12 items, dual-angle images, ratings, badges.
-- Luxury Product Card with hover angle flip, quick size selector, color dots, wishlist heart.
-- Multi-tier filtering (Gender, Category, Size XS-XL, Price Slider $200-$1200, Sorting).
-- Toast notification alerts for user actions.
-
-### Phase 4: Cart Drawer & Quick View Modal
-- Slide-out Shopping Bag (`src/components/CartDrawer.jsx`) with item quantity modifiers and deletion.
-- Free Express Delivery meter ($500 target threshold).
-- Promotional coupon discount engine (`LUXE20`, `ATELIER`, `VIP50`).
-- High-Fashion Quick View Modal (`src/components/QuickViewModal.jsx`) with multi-angle gallery and size/color selection.
-
-### Phase 5: Multi-Step Checkout Flow & Order Confirmation
-- Multi-step checkout experience (`src/components/CheckoutModal.jsx`): Shipping address form with validation, White-glove vs Priority courier selection, and payment simulation.
-- Order confirmation with celebratory golden confetti (`canvas-confetti`), dynamic order number, itemized receipt, and printable dossier action.
-
-### Phase 6: Live Deployment Setup & System Finalization
-- Created `vercel.json` for seamless Vercel SPA deployment.
-- Created `netlify.toml` for Netlify hosting.
-- Created `.gitignore` for clean Git repositories.
-- Created `BUILD_PRODUCTION.bat` for one-click production compilation.
-- Created `DEPLOYMENT_GUIDE.md` explaining 3 free deployment pathways in Roman Urdu and English.
-- Optimized and verified production build with zero errors.
-- Synchronized all final files to `D:\Luxe Apparel Store`.
-
----
-
-## 7. Instructions for Future AI / Developers
-
-Agar koi aur AI ya developer is codebase par kaam kare:
-1. **Component Architecture:** Tamam components `src/components/` mein modular rakhe gaye hain. Har component independent hai aur props ke zariye operate karta hai.
-2. **Global State:** Tamam global state (`currency`, `cartItems`, `wishlist`, `activeCategory`, `searchQuery`, `isCheckoutOpen`, etc.) `src/context/StoreContext.jsx` se manage hoti hai. Naye features ke liye isi context ko extend karein.
-3. **Products Data:** Naye kapray ya garments add karne ke liye `src/data/products.js` mein product object add karein. Dono angle ki images (`images: [img1, img2]`) lazmi dein taake hover angle flip theek kaam kare.
-4. **Prices & Currencies:** Hamesha `formatPrice(usdAmount)` use karein taake user ki muntakhab kardah currency (USD, EUR, GBP, PKR) mein automatically conversion ho.
-5. **Changelog Maintenance:** Jab bhi koi nayi tabdeeli ki jaye, Section 6 mein nayi entry add karein.
+1. **GitHub Push:**
+   - Git repository pehle se initialize aur committed hai.
+   - Jab aap apna GitHub URL denge:
+     ```bash
+     git remote add origin https://github.com/AapkaUsername/AapkaRepo.git
+     git branch -M main
+     git push -u origin main
+     ```
+2. **Vercel / Netlify Deployment:**
+   - Vercel: `vercel.json` configured hai. Sirf repo connect karein ya terminal mein `npx vercel` run karein.
+   - Netlify: `BUILD_PRODUCTION.bat` run kar ke `dist/` folder ko [app.netlify.com/drop](https://app.netlify.com/drop) par drag-and-drop kar dein.

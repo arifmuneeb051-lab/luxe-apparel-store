@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { ArrowRight, Sparkles, Globe, Mail, Phone, MapPin } from 'lucide-react'
+import { ArrowRight, Sparkles, Globe, Mail, Phone, MapPin, Truck } from 'lucide-react'
+import { useStore } from '../context/StoreContext'
 
 export default function Footer() {
+  const { setIsTrackOrderOpen } = useStore()
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
 
@@ -85,7 +87,15 @@ export default function Footer() {
               <li><span className="hover:text-[#D4AF37] transition cursor-pointer">Atelier Personal Stylist</span></li>
               <li><span className="hover:text-[#D4AF37] transition cursor-pointer">Complimentary Shipping</span></li>
               <li><span className="hover:text-[#D4AF37] transition cursor-pointer">Doorstep 30-Day Returns</span></li>
-              <li><span className="hover:text-[#D4AF37] transition cursor-pointer">Track Insured Delivery</span></li>
+              <li>
+                <button
+                  onClick={() => setIsTrackOrderOpen(true)}
+                  className="hover:text-[#D4AF37] transition cursor-pointer text-left flex items-center gap-1.5"
+                >
+                  <Truck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                  <span>Track Insured Delivery</span>
+                </button>
+              </li>
               <li><span className="hover:text-[#D4AF37] transition cursor-pointer">Bespoke Size Guide</span></li>
             </ul>
           </div>

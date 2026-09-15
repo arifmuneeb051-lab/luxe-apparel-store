@@ -34,7 +34,8 @@ export default function CheckoutModal() {
     currentUser,
     setIsAuthModalOpen,
     setAuthModalMode,
-    addOrder
+    addOrder,
+    openOrderTracking
   } = useStore()
 
   const [step, setStep] = useState(1) // 1: Shipping, 2: Delivery, 3: Payment, 4: Success
@@ -820,7 +821,19 @@ export default function CheckoutModal() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center justify-center gap-4 pt-2">
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                  <button
+                    onClick={() => {
+                      const ordNum = orderData.orderNumber
+                      handleClose()
+                      openOrderTracking(ordNum)
+                    }}
+                    className="px-6 py-3 rounded-lg bg-[#D4AF37] hover:bg-[#B38F22] text-black text-xs font-semibold tracking-wider uppercase transition flex items-center gap-2 shadow-lg shadow-[#D4AF37]/20"
+                  >
+                    <Truck className="w-4 h-4" />
+                    <span>TRACK CONSIGNMENT</span>
+                  </button>
+
                   <button
                     onClick={() => window.print()}
                     className="px-6 py-3 rounded-lg bg-[#181818] border border-[#333333] hover:border-white text-xs font-semibold tracking-wider uppercase transition flex items-center gap-2"
@@ -831,7 +844,7 @@ export default function CheckoutModal() {
 
                   <button
                     onClick={handleClose}
-                    className="px-8 py-3 bg-[#D4AF37] hover:bg-[#B38F22] text-black font-semibold text-xs tracking-luxury uppercase rounded transition flex items-center gap-2"
+                    className="px-6 py-3 bg-[#181818] border border-[#333333] hover:border-[#D4AF37] text-[#FAF9F6] font-semibold text-xs tracking-wider uppercase rounded-lg transition flex items-center gap-2"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     <span>RETURN TO ATELIER</span>

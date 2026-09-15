@@ -11,7 +11,21 @@ import {
   Check,
   ShieldCheck,
   Sparkles,
-  Layers
+  Layers,
+  Users,
+  Bell,
+  Truck,
+  ExternalLink,
+  Mail,
+  CheckCircle2,
+  Clock,
+  CreditCard,
+  Banknote,
+  MapPin,
+  Calendar,
+  AlertCircle,
+  Phone,
+  ShieldAlert
 } from 'lucide-react'
 import { useStore } from '../context/StoreContext'
 
@@ -25,13 +39,17 @@ export default function AdminPortal() {
     deleteProduct,
     orders,
     updateOrderStatus,
+    verifyOrder,
+    openOrderTracking,
+    users,
+    adminNotifications,
     coupons,
     addCoupon,
     deleteCoupon,
     formatPrice
   } = useStore()
 
-  const [activeTab, setActiveTab] = useState('inventory') // 'inventory', 'orders', 'coupons'
+  const [activeTab, setActiveTab] = useState('inventory') // 'inventory' | 'orders' | 'users' | 'notifications' | 'coupons'
   const [isAddingProduct, setIsAddingProduct] = useState(false)
 
   // New Product Form State
@@ -99,69 +117,91 @@ export default function AdminPortal() {
       />
 
       <div className="min-h-screen px-4 py-8 flex items-center justify-center">
-        <div className="relative w-full max-w-5xl bg-[#0F0F0F] border border-[#2B2B2B] rounded-2xl overflow-hidden shadow-2xl z-10 text-[#FAF9F6] animate-fade-in flex flex-col max-h-[90vh]">
+        <div className="relative w-full max-w-6xl bg-[#0F0F0F] border border-[#2B2B2B] rounded-2xl overflow-hidden shadow-2xl z-10 text-[#FAF9F6] animate-fade-in flex flex-col max-h-[92vh]">
           
           {/* Admin Header */}
-          <div className="p-6 bg-[#080808] border-b border-[#222222] flex items-center justify-between">
+          <div className="p-5 sm:p-6 bg-[#080808] border-b border-[#222222] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#181818] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-10 h-10 rounded-lg bg-[#181818] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] flex-shrink-0">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="font-serif tracking-luxury text-base font-semibold uppercase text-white">
-                  ATELIER MAISON DASHBOARD
-                </h2>
-                <span className="text-[10px] text-[#888888] tracking-widest uppercase font-mono">
-                  Store Management Portal • Inventory & Orders
-                </span>
+                <div className="flex items-center gap-2">
+                  <h2 className="font-serif tracking-luxury text-base font-semibold uppercase text-white">
+                    ATELIER MAISON CONTROL CENTER
+                  </h2>
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-bold tracking-widest uppercase border border-emerald-500/40">
+                    Live
+                  </span>
+                </div>
+                <p className="text-[10px] text-[#888888] tracking-widest uppercase font-mono">
+                  Superadmin Operations • arifmuneeb81@gmail.com
+                </p>
               </div>
             </div>
 
-            <button
-              onClick={() => setIsAdminOpen(false)}
-              className="p-2 text-[#888888] hover:text-white transition rounded-full hover:bg-[#1C1C1C]"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-3">
+              {/* Admin Email Capsule */}
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141414] border border-[#2B2B2B]">
+                <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span className="text-[11px] font-mono text-[#D4AF37] font-semibold">
+                  arifmuneeb81@gmail.com
+                </span>
+                <span className="text-[8px] uppercase px-1.5 py-0.5 rounded bg-[#D4AF37]/20 text-[#D4AF37] font-bold">
+                  Verified Owner
+                </span>
+              </div>
+
+              <button
+                onClick={() => setIsAdminOpen(false)}
+                className="p-2 text-[#888888] hover:text-white transition rounded-full hover:bg-[#1C1C1C]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* KPI Analytics Cards */}
-          <div className="p-6 bg-[#121212] border-b border-[#222222] grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-[#161616] border border-[#262626]">
-              <span className="text-[10px] text-[#888888] uppercase tracking-wider block mb-1">Total Sales Revenue</span>
-              <span className="font-serif font-bold text-lg text-[#D4AF37]">{formatPrice(totalRevenueUSD)}</span>
+          <div className="p-5 bg-[#121212] border-b border-[#222222] grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <div className="p-3.5 rounded-xl bg-[#161616] border border-[#262626]">
+              <span className="text-[9px] text-[#888888] uppercase tracking-wider block mb-1">Total Sales Revenue</span>
+              <span className="font-serif font-bold text-base sm:text-lg text-[#D4AF37]">{formatPrice(totalRevenueUSD)}</span>
             </div>
-            <div className="p-4 rounded-xl bg-[#161616] border border-[#262626]">
-              <span className="text-[10px] text-[#888888] uppercase tracking-wider block mb-1">Total Orders Placed</span>
-              <span className="font-serif font-bold text-lg text-white">{orders.length}</span>
+            <div className="p-3.5 rounded-xl bg-[#161616] border border-[#262626]">
+              <span className="text-[9px] text-[#888888] uppercase tracking-wider block mb-1">Total Orders</span>
+              <span className="font-serif font-bold text-base sm:text-lg text-white">{orders.length}</span>
             </div>
-            <div className="p-4 rounded-xl bg-[#161616] border border-[#262626]">
-              <span className="text-[10px] text-[#888888] uppercase tracking-wider block mb-1">Garments in Catalog</span>
-              <span className="font-serif font-bold text-lg text-white">{allProducts.length}</span>
+            <div className="p-3.5 rounded-xl bg-[#161616] border border-[#262626]">
+              <span className="text-[9px] text-[#888888] uppercase tracking-wider block mb-1">Registered Clients</span>
+              <span className="font-serif font-bold text-base sm:text-lg text-white">{users.length}</span>
             </div>
-            <div className="p-4 rounded-xl bg-[#161616] border border-[#262626]">
-              <span className="text-[10px] text-[#888888] uppercase tracking-wider block mb-1">Active Promo Codes</span>
-              <span className="font-serif font-bold text-lg text-emerald-400">{coupons.length}</span>
+            <div className="p-3.5 rounded-xl bg-[#161616] border border-[#262626]">
+              <span className="text-[9px] text-[#888888] uppercase tracking-wider block mb-1">Garments in Catalog</span>
+              <span className="font-serif font-bold text-base sm:text-lg text-white">{allProducts.length}</span>
+            </div>
+            <div className="p-3.5 rounded-xl bg-[#161616] border border-[#262626]">
+              <span className="text-[9px] text-[#888888] uppercase tracking-wider block mb-1">Admin Alerts</span>
+              <span className="font-serif font-bold text-base sm:text-lg text-amber-400">{adminNotifications.length}</span>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex border-b border-[#222222] px-6 bg-[#0E0E0E]">
+          <div className="flex overflow-x-auto border-b border-[#222222] px-6 bg-[#0E0E0E] scrollbar-none">
             <button
               onClick={() => setActiveTab('inventory')}
-              className={`py-3.5 px-5 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 ${
+              className={`py-3 px-4 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 flex-shrink-0 ${
                 activeTab === 'inventory'
                   ? 'border-[#D4AF37] text-[#D4AF37]'
                   : 'border-transparent text-[#888888] hover:text-white'
               }`}
             >
               <Package className="w-4 h-4" />
-              <span>Garments Inventory ({allProducts.length})</span>
+              <span>Garments ({allProducts.length})</span>
             </button>
 
             <button
               onClick={() => setActiveTab('orders')}
-              className={`py-3.5 px-5 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 ${
+              className={`py-3 px-4 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 flex-shrink-0 ${
                 activeTab === 'orders'
                   ? 'border-[#D4AF37] text-[#D4AF37]'
                   : 'border-transparent text-[#888888] hover:text-white'
@@ -172,15 +212,39 @@ export default function AdminPortal() {
             </button>
 
             <button
+              onClick={() => setActiveTab('users')}
+              className={`py-3 px-4 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 flex-shrink-0 ${
+                activeTab === 'users'
+                  ? 'border-[#D4AF37] text-[#D4AF37]'
+                  : 'border-transparent text-[#888888] hover:text-white'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              <span>Registered Clients ({users.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('notifications')}
+              className={`py-3 px-4 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 flex-shrink-0 ${
+                activeTab === 'notifications'
+                  ? 'border-[#D4AF37] text-[#D4AF37]'
+                  : 'border-transparent text-[#888888] hover:text-white'
+              }`}
+            >
+              <Bell className="w-4 h-4" />
+              <span>Admin Alerts ({adminNotifications.length})</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab('coupons')}
-              className={`py-3.5 px-5 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 ${
+              className={`py-3 px-4 text-xs font-semibold tracking-wider uppercase border-b-2 transition flex items-center gap-2 flex-shrink-0 ${
                 activeTab === 'coupons'
                   ? 'border-[#D4AF37] text-[#D4AF37]'
                   : 'border-transparent text-[#888888] hover:text-white'
               }`}
             >
               <Tag className="w-4 h-4" />
-              <span>Privilege Coupons ({coupons.length})</span>
+              <span>Coupons ({coupons.length})</span>
             </button>
           </div>
 
@@ -373,48 +437,267 @@ export default function AdminPortal() {
               </div>
             )}
 
-            {/* TAB 2: Orders Dossier */}
+            {/* TAB 2: Orders Dossier & Verification */}
             {activeTab === 'orders' && (
               <div className="space-y-4">
-                <h3 className="font-serif text-lg font-light text-white">
-                  Client Order Records & Fulfillment
-                </h3>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h3 className="font-serif text-lg font-light text-white">
+                      Client Order Records & Verification Control
+                    </h3>
+                    <p className="text-[11px] text-[#888888]">
+                      Orders requiring review can be confirmed directly by admin <strong className="text-[#D4AF37]">arifmuneeb81@gmail.com</strong>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {orders.map((ord) => {
+                    const isCOD = (ord.paymentMethod || '').toUpperCase().includes('COD') || (ord.paymentMethod || '').toUpperCase().includes('CASH')
+                    const isVerified = ord.verificationStatus === 'Verified by Admin'
+
+                    return (
+                      <div
+                        key={ord.orderNumber}
+                        className="p-5 rounded-xl bg-[#131313] border border-[#242424] hover:border-[#333333] transition space-y-4"
+                      >
+                        {/* Order Header Row */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#202020] pb-3">
+                          <div className="flex items-center gap-3">
+                            <span className="font-mono text-[#D4AF37] font-bold text-sm">{ord.orderNumber}</span>
+                            <span className="text-[11px] text-[#888888]">• {ord.date}</span>
+                            
+                            {/* Payment Badge */}
+                            {isCOD ? (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                                <Banknote className="w-3 h-3" />
+                                <span>Cash on Delivery (COD)</span>
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                                <CreditCard className="w-3 h-3" />
+                                <span>Stripe Online Payment</span>
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            {/* Verification Status Pill */}
+                            {isVerified ? (
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <span>Verified by arifmuneeb81@gmail.com</span>
+                              </div>
+                            ) : (
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-semibold bg-amber-500/15 border border-amber-500/30 text-amber-400">
+                                <AlertCircle className="w-3.5 h-3.5" />
+                                <span>Awaiting Admin Verification</span>
+                              </div>
+                            )}
+
+                            <span className="font-serif font-bold text-base text-[#D4AF37]">
+                              {formatPrice(ord.total)}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Order Body Details */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                          <div>
+                            <span className="text-[10px] text-[#777777] uppercase block mb-1">Client Dossier</span>
+                            <p className="font-semibold text-white">{ord.customerName}</p>
+                            <p className="text-[11px] text-[#AAAAAA]">{ord.email}</p>
+                            {ord.phone && <p className="text-[11px] text-[#888888]">{ord.phone}</p>}
+                          </div>
+
+                          <div>
+                            <span className="text-[10px] text-[#777777] uppercase block mb-1">Delivery Destination</span>
+                            <p className="text-[#CCCCCC] leading-relaxed line-clamp-2">{ord.shippingAddress}</p>
+                            <p className="text-[10px] text-[#888888] mt-1">
+                              Carrier: {ord.tracking?.courier || 'Luxe White-Glove VIP Logistics'}
+                            </p>
+                          </div>
+
+                          <div>
+                            <span className="text-[10px] text-[#777777] uppercase block mb-1">Purchased Garments</span>
+                            <div className="space-y-1 max-h-16 overflow-y-auto pr-1">
+                              {ord.items.map((it, idx) => (
+                                <p key={idx} className="text-[#AAAAAA] text-[11px] truncate">
+                                  {it.quantity}x {it.title} ({it.selectedSize || 'Standard'})
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Order Footer Actions */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#202020]">
+                          <div className="flex items-center gap-2">
+                            {/* Verify Button (if not verified yet) */}
+                            {!isVerified && (
+                              <button
+                                onClick={() => verifyOrder(ord.orderNumber)}
+                                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wider uppercase rounded-lg transition flex items-center gap-1.5 shadow-md shadow-emerald-900/30"
+                              >
+                                <Check className="w-3.5 h-3.5" />
+                                <span>Verify & Confirm Order</span>
+                              </button>
+                            )}
+
+                            {/* View Live Tracking Modal */}
+                            <button
+                              onClick={() => openOrderTracking(ord.orderNumber)}
+                              className="px-3 py-2 bg-[#1C1C1C] hover:bg-[#252525] border border-[#333333] hover:border-[#D4AF37] text-xs text-[#FAF9F6] rounded-lg transition flex items-center gap-1.5"
+                            >
+                              <Truck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                              <span>Live Tracking Consignment</span>
+                            </button>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <span className="text-[11px] text-[#888888]">Status:</span>
+                            <select
+                              value={ord.status || 'Processing'}
+                              onChange={(e) => updateOrderStatus(ord.orderNumber, e.target.value)}
+                              className="bg-[#1C1C1C] border border-[#333333] text-xs text-emerald-400 p-1.5 rounded-lg outline-none font-semibold cursor-pointer"
+                            >
+                              <option value="Pending Admin Verification">Pending Verification</option>
+                              <option value="Processing">Processing</option>
+                              <option value="White-Glove Dispatched">White-Glove Dispatched</option>
+                              <option value="Delivered">Delivered</option>
+                              <option value="Cancelled">Cancelled</option>
+                            </select>
+                          </div>
+                        </div>
+
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3: Registered Clients / Users Dossier */}
+            {activeTab === 'users' && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-serif text-lg font-light text-white">
+                      Registered Client Accounts & VIP Dossiers
+                    </h3>
+                    <p className="text-[11px] text-[#888888]">
+                      Client accounts created before checkout. Stored locally in <code className="text-[#D4AF37] font-mono">data/users.json</code>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-[#222222] overflow-hidden bg-[#131313]">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-[#181818] text-[#888888] uppercase tracking-wider text-[10px] border-b border-[#262626]">
+                      <tr>
+                        <th className="py-3 px-4">Client ID & Name</th>
+                        <th className="py-3 px-4">Email Address</th>
+                        <th className="py-3 px-4">Phone</th>
+                        <th className="py-3 px-4">Residence City / Country</th>
+                        <th className="py-3 px-4">Account Role</th>
+                        <th className="py-3 px-4 text-right">Registered</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#1F1F1F]">
+                      {users.map((u) => (
+                        <tr key={u.id} className="hover:bg-[#181818] transition">
+                          <td className="py-3.5 px-4 flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#F5E6B3] text-black font-serif font-bold text-xs flex items-center justify-center flex-shrink-0">
+                              {u.name ? u.name.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            <div>
+                              <p className="font-semibold text-white">{u.name}</p>
+                              <p className="text-[10px] font-mono text-[#777777]">{u.id}</p>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 font-mono text-xs text-[#CCCCCC]">{u.email}</td>
+                          <td className="py-3 px-4 text-[#AAAAAA]">{u.phone || '—'}</td>
+                          <td className="py-3 px-4 text-[#AAAAAA]">
+                            {u.city ? `${u.city}, ${u.country}` : u.country || 'Global'}
+                          </td>
+                          <td className="py-3 px-4">
+                            {u.role === 'admin' || u.email === 'arifmuneeb81@gmail.com' ? (
+                              <span className="px-2 py-0.5 rounded text-[9px] font-bold tracking-wider bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37]">
+                                SUPERADMIN
+                              </span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded text-[9px] font-bold tracking-wider bg-purple-500/20 border border-purple-500/40 text-purple-300">
+                                MAISON VIP CLIENT
+                              </span>
+                            )}
+                          </td>
+                          <td className="py-3 px-4 text-right text-[11px] text-[#777777]">
+                            {u.createdAt || '2026-09-01'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: Admin Notifications for arifmuneeb81@gmail.com */}
+            {activeTab === 'notifications' && (
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h3 className="font-serif text-lg font-light text-white">
+                      Atelier Management Inbox & Alerts
+                    </h3>
+                    <p className="text-[11px] text-[#888888]">
+                      All live customer order events and signups notified to <strong className="text-[#D4AF37]">arifmuneeb81@gmail.com</strong>
+                    </p>
+                  </div>
+
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono bg-[#181818] border border-[#2B2B2B] text-[#D4AF37]">
+                    Monitoring: arifmuneeb81@gmail.com
+                  </span>
+                </div>
 
                 <div className="space-y-3">
-                  {orders.map((ord) => (
+                  {adminNotifications.map((notif) => (
                     <div
-                      key={ord.orderNumber}
-                      className="p-4 rounded-xl bg-[#131313] border border-[#242424] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs"
+                      key={notif.id}
+                      className="p-4 rounded-xl bg-[#131313] border border-[#242424] flex flex-col sm:flex-row sm:items-start justify-between gap-4 text-xs hover:border-[#333333] transition"
                     >
-                      <div>
-                        <div className="flex items-center gap-2.5 mb-1">
-                          <span className="font-mono text-[#D4AF37] font-bold text-sm">{ord.orderNumber}</span>
-                          <span className="text-[11px] text-[#888888]">• {ord.date}</span>
-                          <span className="text-[10px] text-[#AAAAAA]">Client: <strong className="text-white">{ord.customerName}</strong></span>
+                      <div className="flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-[#1C1C1C] border border-[#333333] flex items-center justify-center text-[#D4AF37] flex-shrink-0 mt-0.5">
+                          {notif.type === 'NEW_ORDER_ALERT' ? (
+                            <ShoppingBag className="w-4 h-4" />
+                          ) : (
+                            <Users className="w-4 h-4" />
+                          )}
                         </div>
-                        <p className="text-[11px] text-[#777777] mb-1">
-                          Destination: {ord.shippingAddress}
-                        </p>
-                        <p className="text-xs text-[#CCCCCC]">
-                          Items: {ord.items.map((it) => `${it.quantity}x ${it.title}`).join(', ')}
-                        </p>
+
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-semibold text-white text-sm">{notif.title}</span>
+                            <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#202020] text-[#888888]">
+                              {notif.type}
+                            </span>
+                          </div>
+
+                          <p className="text-[11px] text-[#CCCCCC] mb-1">
+                            {notif.customer} • {notif.location || notif.paymentMethod || 'Atelier'}
+                          </p>
+
+                          {notif.actionRequired && (
+                            <p className="text-[11px] text-amber-400 font-medium">
+                              Action: {notif.actionRequired}
+                            </p>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="flex items-center gap-4 sm:flex-col sm:items-end">
-                        <span className="font-serif font-bold text-base text-[#D4AF37]">
-                          {formatPrice(ord.total)}
-                        </span>
-
-                        <select
-                          value={ord.status || 'Processing'}
-                          onChange={(e) => updateOrderStatus(ord.orderNumber, e.target.value)}
-                          className="bg-[#1C1C1C] border border-[#333333] text-[11px] text-emerald-400 p-1.5 rounded outline-none font-semibold cursor-pointer"
-                        >
-                          <option value="Processing">Processing</option>
-                          <option value="White-Glove Dispatched">White-Glove Dispatched</option>
-                          <option value="Delivered">Delivered</option>
-                          <option value="Cancelled">Cancelled</option>
-                        </select>
+                      <div className="text-left sm:text-right flex-shrink-0 text-[10px] text-[#777777] font-mono">
+                        <p>{notif.timestamp ? new Date(notif.timestamp).toLocaleString() : 'Just now'}</p>
+                        <p className="text-[#D4AF37] mt-0.5">To: arifmuneeb81@gmail.com</p>
                       </div>
                     </div>
                   ))}
@@ -422,7 +705,7 @@ export default function AdminPortal() {
               </div>
             )}
 
-            {/* TAB 3: Privilege Coupons */}
+            {/* TAB 5: Privilege Coupons */}
             {activeTab === 'coupons' && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

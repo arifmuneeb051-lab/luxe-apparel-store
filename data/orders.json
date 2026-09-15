@@ -1,0 +1,92 @@
+[
+  {
+    "orderNumber": "LX-2026-9041",
+    "date": "September 12, 2026",
+    "userId": "usr-demo-02",
+    "customerName": "Victoria Sterling",
+    "email": "v.sterling@mayfair.co.uk",
+    "phone": "+44 20 7946 0912",
+    "shippingAddress": "14 Berkeley Square, Mayfair, London, W1J 5AW, United Kingdom",
+    "items": [
+      {
+        "id": "luxe-01",
+        "title": "Double-Faced Cashmere Overcoat",
+        "selectedSize": "M",
+        "selectedColor": "Camel Tan",
+        "quantity": 1,
+        "price": 890
+      }
+    ],
+    "total": 890,
+    "paymentMethod": "STRIPE",
+    "paymentStatus": "Paid",
+    "status": "In Transit",
+    "verificationStatus": "Verified by Admin",
+    "verifiedBy": "arifmuneeb81@gmail.com",
+    "verifiedAt": "September 12, 2026, 11:30 AM",
+    "adminNotifiedEmail": "arifmuneeb81@gmail.com",
+    "tracking": {
+      "courier": "Luxe Atelier White-Glove Logistics",
+      "trackingNumber": "TRK-LX-9041-GB",
+      "estimatedDelivery": "September 16, 2026",
+      "currentLocation": "London Central Logistics Hub",
+      "timeline": [
+        { "status": "Order Placed", "time": "Sep 12, 09:14 AM", "completed": true, "note": "Order received in atelier system." },
+        { "status": "Admin Verified & Confirmed", "time": "Sep 12, 11:30 AM", "completed": true, "note": "Verified by management (arifmuneeb81@gmail.com)." },
+        { "status": "Atelier Tailoring & Quality Check", "time": "Sep 13, 02:45 PM", "completed": true, "note": "Hand-steamed and encased in garment box." },
+        { "status": "Dispatched via White-Glove Courier", "time": "Sep 14, 08:00 AM", "completed": true, "note": "Departed Florence atelier to London hub." },
+        { "status": "Out for Handover Delivery", "time": "Pending", "completed": false, "note": "Scheduled for signature handover." },
+        { "status": "Delivered to Residence", "time": "Pending", "completed": false, "note": "White-glove private reception." }
+      ]
+    }
+  },
+  {
+    "orderNumber": "LX-2026-8819",
+    "date": "September 14, 2026",
+    "userId": "usr-demo-01",
+    "customerName": "Alexander Vance",
+    "email": "avance@nycatelier.com",
+    "phone": "+1 (555) 019-2834",
+    "shippingAddress": "432 Park Avenue, Penthouse 72, New York, 10022, United States",
+    "items": [
+      {
+        "id": "luxe-02",
+        "title": "Structured Italian Wool Tuxedo Blazer",
+        "selectedSize": "42R",
+        "selectedColor": "Midnight Black",
+        "quantity": 1,
+        "price": 750
+      },
+      {
+        "id": "luxe-06",
+        "title": "Monogram Calfskin Atelier Briefcase",
+        "selectedSize": "One Size",
+        "selectedColor": "Espresso Brown",
+        "quantity": 1,
+        "price": 940
+      }
+    ],
+    "total": 1690,
+    "paymentMethod": "CASH ON DELIVERY (COD)",
+    "paymentStatus": "Pending Handover",
+    "status": "Pending Admin Verification",
+    "verificationStatus": "Awaiting Admin Review",
+    "verifiedBy": null,
+    "verifiedAt": null,
+    "adminNotifiedEmail": "arifmuneeb81@gmail.com",
+    "tracking": {
+      "courier": "Luxe Private Chauffeur Dispatch",
+      "trackingNumber": "TRK-LX-8819-US",
+      "estimatedDelivery": "September 18, 2026",
+      "currentLocation": "New York Atelier Flagship",
+      "timeline": [
+        { "status": "Order Placed", "time": "Sep 14, 03:20 PM", "completed": true, "note": "Cash on Delivery request logged." },
+        { "status": "Admin Verified & Confirmed", "time": "Pending", "completed": false, "note": "Admin arifmuneeb81@gmail.com confirmation pending." },
+        { "status": "Atelier Tailoring & Packaging", "time": "Pending", "completed": false, "note": "Waiting for confirmation." },
+        { "status": "Dispatched via White-Glove Courier", "time": "Pending", "completed": false, "note": "Awaiting dispatch." },
+        { "status": "Out for Handover Delivery", "time": "Pending", "completed": false, "note": "Payment collected upon handover." },
+        { "status": "Delivered to Residence", "time": "Pending", "completed": false, "note": "Order complete." }
+      ]
+    }
+  }
+]
