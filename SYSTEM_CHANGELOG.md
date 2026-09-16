@@ -1,106 +1,143 @@
 # LUXE APPAREL — System Changelog & Complete Modifications Record
-**Document Version:** 3.0.0 Full-Fledged Enterprise & Live Serverless Suite  
+**Document Version:** 4.0.0 Enterprise Security & Pakistani Luxury Suite  
 **Platform Identity:** LUXE APPAREL (Haute Couture Atelier & Digital Flagship)  
-**Primary Administrator:** `arifmuneeb81@gmail.com`  
+**Primary Administrator / Owner:** `arifmuneeb81@gmail.com`  
 **GitHub Repository:** `https://github.com/arifmuneeb051-lab/luxe-apparel-store`  
+**Live Production Vercel URL:** `https://luxe-apparel-store.vercel.app`  
 **Target Local Directory:** `D:\Luxe Apparel Store`
 
 ---
 
-## 1. Executive Overview of Version 3.0.0
-Is major release mein platform ko live production (Vercel & Netlify) ke liye **100% Full-Fledged Cloud System** mein tabdeel kiya gaya hai. User feedback ke mutabiq products ki tadad ko barha kar aik mukammal luxury fashion catalog banaya gaya hai, aur frontend ke sath sath live backend ko bhi Vercel Serverless Functions ke zariye globally deploy kiya gaya hai.
+## 1. Executive Overview of Version 4.0.0
+Is release mein platform ko complete enterprise security isolation, Pakistani luxury market positioning (Sapphire, Khaadi, Sana Safinaz, Maria.B aesthetic), default PKR currency, aur standalone private administrative system par upgrade kiya gaya hai:
+
+1. **Security Isolation (Public Storefront se Admin ka 100% Khatma):**
+   * Public website (`Navbar.jsx`, `App.jsx`, aur live Vercel frontend) se tamam Admin buttons, toggles, aur portal components ko mukammal taur par remove kar diya gaya hai. Koi bhi aam customer ya competitor store owner ke sales records, client list, ya revenues nahi dekh sakta.
+2. **Secret Local Admin Management Console (`ADMIN_PORTAL.html` + `LAUNCH_ADMIN_PORTAL.bat`):**
+   * Root folder mein aik standalone, encrypted administrative portal banaya gaya hai jo sirf store owner (`arifmuneeb81@gmail.com`) ke liye makhsoos hai. 1-click `LAUNCH_ADMIN_PORTAL.bat` se yeh dashboard kisi bhi browser mein khul jata hai.
+3. **Default Currency to PKR (₨ / Rs.):**
+   * Storefront ki default currency ko USD se badal kar **PKR (Rs.)** kar diya gaya hai with realistic Pakistani luxury pret and formal pricing.
+   * Free shipping threshold ko Pakistani market standard ke mutabiq **Rs. 10,000** par set kiya gaya hai.
+4. **Pakistani Luxury Brand Aesthetic Transformation:**
+   * Categories, announcement bar, brand trust pillars, hero runway lookbook, aur VIP privilege banners ko premium Pakistani couture aesthetics par update kiya gaya hai.
+5. **Full-Stack Serverless Cloud Sync:**
+   * Local admin console Vercel serverless API (`https://luxe-apparel-store.vercel.app/api/orders`) ke sath synchronized hai.
 
 ---
 
 ## 2. Itemized Changelog by Architecture Layer
 
-### Phase 7: Catalog Expansion to 32 Haute-Couture Pieces (`src/data/products.js`)
-* **Massive Catalog Expansion (12 ➔ 32 Garments & Accessories):**
-  * **Women's Collections:**
-    - *Double-Faced Cashmere Overcoat* ($890) — Italian cashmere in Camel Tan, Noir & Ivory
-    - *Spanish Merino Shearling Aviator Coat* ($1,250) — Entrefino shearling with brass hardware
-    - *Mulberry Silk Bias-Cut Gown* ($680) — Grade 6A organic silk in Champagne & Emerald
-    - *Draped Velvet Backless Evening Gown* ($850) — Stretch silk-velvet with low-back drape
-    - *Sculptural Plissé Cape Dress* ($790) — Sunburst pleated georgette with floating capelet
-    - *Asymmetric Draped Satin Midi Dress* ($620) — Liquid Japanese hammered satin
-    - *Sculpted Hourglass Italian Blazer* ($620) — Cinched waist tailoring with horn buttons
-    - *Wide-Leg Pleated Silk-Wool Trousers* ($480) — Inverted double pleats in Ecru & Charcoal
-    - *Pussy-Bow Silk Georgette Blouse* ($410) — Poet sleeves with French cuffs & scarf neck
-    - *Belted Wool-Cashmere Trench* ($920) — Double-breasted with removable shearling collar
-    - *Ribbed Pure Cashmere Cocoon Cardigan* ($510) — 5-gauge knit with 30mm MOP buttons
-    - *Knee-High Hand-Burnished Leather Boots* ($820) — 75mm Cuban heel in Tuscan calfskin
-    - *Minimalist Pointed Leather Slingback Pumps* ($490) — 65mm kitten stiletto
-  * **Men's Collections:**
-    - *Structured Italian Wool Tuxedo Blazer* ($750) — Super 150s virgin wool with grosgrain lapels
-    - *Bespoke Pinstripe Double-Breasted Suit* ($1,180) — Super 160s chalk stripe wool
-    - *Shawl Lapel Velvet Smoking Jacket* ($880) — Italian cotton velvet in Midnight Wine
-    - *Single-Breasted Travel Blazer in Super 130s* ($690) — High-twist wrinkle-resistant wool
-    - *Lambskin Leather Minimalist Biker Jacket* ($980) — Washed French lambskin with Swiss zips
-    - *Technical Storm Trench with Horn Buttons* ($890) — 3-layer weatherproof gabardine with down liner
-    - *Minimalist Stand-Collar Car Coat* ($780) — Double-woven virgin wool in Camel & Raven
-    - *Heavyweight Milano Knit Turtleneck* ($420) — 7-gauge Australian merino wool
-    - *Waffle-Knit Pure Cashmere Crewneck* ($460) — 4-ply Scottish spun cashmere
-    - *Relaxed Drop-Shoulder Alpaca Hoodie* ($360) — Peruvian baby alpaca & organic pima cotton
-    - *Giza 45 Egyptian Cotton Poplin Shirt* ($290) — 200/2 ply compact poplin with MOP buttons
-    - *Hand-Stitched Leather Chelsea Boots* ($580) — Blake-stitched European crust leather
-    - *Calfskin Penny Loafers with Blake Stitching* ($540) — Apron toe with hand-painted patina
-  * **Haute Horlogerie & Accessories:**
-    - *Monogram Calfskin Atelier Briefcase* ($940) — Full-grain Tuscan leather with palladium hardware
-    - *Quilted Lambskin Chain Flap Bag* ($1,150) — Diamond quilted nappa with 24k gold hardware
-    - *Hand-Rolled Silk Twill Scarf 90cm* ($240) — 18 momme silk twill printed in Lyon
-    - *Handcrafted Japanese Titanium Sunglasses* ($340) — Beta-titanium frame with Zeiss lenses
-    - *Full-Grain Leather Belt with Solid Brass* ($210) — 4mm English bridle leather
-    - *Atelier Amber & Smoked Oud Extrait de Parfum* ($280) — 35% oil concentration with wild oud
-* **Intelligent Auto-Upgrade Algorithm (`StoreContext.jsx`):**
-  * LocalStorage cache mein agar user ke paas purana 12-products catalog tha, toh system automatic comparison kar ke bina browser cache clear kiye naye 32 products par seamlessly upgrade kar deta hai.
+### Phase 9: Admin Removal & Security Separation
+* **Public Navbar Clean-up (`src/components/Navbar.jsx`):**
+  * Removed Desktop Admin Toggle button (lines 178–186).
+  * Removed Mobile Drawer Admin Portal button (lines 309–318).
+  * Removed `Shield` icon import from lucide-react.
+  * Nav links updated to Pakistani luxury couture categories:
+    * `ALL COLLECTIONS`
+    * `FESTIVE LUXURY`
+    * `LUXURY PRET`
+    * `MENSWEAR COUTURE`
+    * `VELVET & SILK`
+    * `BRIDAL ATELIER`
+* **Public App Clean-up (`src/App.jsx`):**
+  * Removed `import AdminPortal from './components/AdminPortal'`.
+  * Removed `<AdminPortal />` component from DOM tree.
+  * Transformed developer-oriented bottom milestone banner into an exclusive **"House of Luxe • Bespoke Atelier Experience"** VIP banner showcasing pure mulberry silk, zardozi embroidery, bespoke stitching, and nationwide COD.
 
 ---
 
-### Phase 8: Vercel Serverless Full-Stack Backend Architecture (`api/`)
-* **Vercel Serverless Microservices:**
-  * `api/health.js`: Live health probe returning serverless status and active endpoints.
-  * `api/products.js`: RESTful endpoint serving product catalog with category, gender, and search query filters.
-  * `api/orders.js`: Handles GET (order lookup & tracking timelines) and POST (new order creation with Stripe & Cash on Delivery support).
-  * `api/verify.js`: Superadmin verification endpoint where `arifmuneeb81@gmail.com` confirms pending orders.
-  * `api/users.js`: User accounts API handling registration and client dossier lookups.
-  * `api/notifications.js`: Real-time alerts feed monitoring all order events for `arifmuneeb81@gmail.com`.
-* **Vercel Unified Routing (`vercel.json`):**
-  * Negative lookahead regex (`/((?!api/).*)` ➔ `/index.html`) ensures that SPA frontend routing works seamlessly alongside live `/api/*` serverless microservices on the exact same domain.
-* **Hybrid Dual-Resilience Frontend Integration (`StoreContext.jsx`):**
-  * Frontend component state initiates live asynchronous HTTP fetch requests to `/api/products`, `/api/orders`, `/api/verify`, and `/api/users`.
-  * Agar user offline ho ya connectivity drop ho, system zero latency ke sath local persistent storage par seamlessly operate karta rehta hai.
+### Phase 10: Standalone Secret Admin Portal (`ADMIN_PORTAL.html` & `LAUNCH_ADMIN_PORTAL.bat`)
+* **Location:** Root directory (`D:\Luxe Apparel Store\` aur workspace scratch).
+* **Components Built:**
+  1. `ADMIN_PORTAL.html`:
+     * **Security Gateway:** Passcode authentication (`admin2026` / `luxe81`) + 1-Click instant owner verification for `arifmuneeb81@gmail.com`.
+     * **Real-Time KPI Dashboard (PKR):**
+       - Total Gross Sales in PKR (`Rs.`)
+       - Total Orders Received (COD vs Stripe)
+       - Pending Verifications count
+       - Registered VIP Clients count
+       - Catalog SKUs (32 luxury garments)
+     * **Tab 1: Orders & Consignments Management:**
+       - Search orders by Order Number, Customer Name, Email, or Phone.
+       - Filter by status (Pending, Verified, In Transit, Delivered).
+       - 1-Click Verification button: *"Verify as Owner (arifmuneeb81@gmail.com)"*.
+       - Dynamic Status Dropdown: Order Placed ➔ Atelier Tailoring ➔ In Transit (TCS/Leopard) ➔ Delivered.
+       - View garment details, sizes, colors, and order totals in PKR.
+     * **Tab 2: Registered Client Database:**
+       - Full list of registered clients with Client IDs, names, emails, phones, and cities.
+     * **Tab 3: Inventory & PKR Pricing:**
+       - Live catalog of luxury garments with image previews, stock quantity adjusters, and "Add Luxury Piece" modal.
+     * **Tab 4: Email Dispatch Notification Stream:**
+       - Logs every automated dispatch alert sent to `arifmuneeb81@gmail.com` when a customer places an order or signs up.
+     * **Data Export & Cloud Sync:**
+       - 1-Click *"Export Orders CSV"* button generating Excel-compatible report.
+       - Live *"Sync Cloud Orders"* button fetching from `https://luxe-apparel-store.vercel.app/api/orders`.
+  2. `LAUNCH_ADMIN_PORTAL.bat`:
+     * Windows batch file jo 1-click mein default browser ke andar private admin portal open karta hai.
 
 ---
 
-### Phase 1 to 6 (Previously Completed Foundations)
-* **Swapped Haute Couture Header (`Navbar.jsx`):** Logo Left, Menu Center, User ID & Cart Right.
-* **Gated Shopping & Client IDs:** Mandatory registration/login before checkout with dossiers in `data/users.json`.
-* **Flexible Payments:** Stripe payment container with ready `.env` slot (`VITE_STRIPE_PUBLIC_KEY`) and Cash on Delivery (COD).
-* **Superadmin Control Center (`AdminPortal.jsx`):** 1-Click order verification by `arifmuneeb81@gmail.com`, registered clients directory, and admin inbox alerts.
-* **6-Milestone Consignment Tracking (`TrackOrderModal.jsx`):** Live delivery milestones accessible from header, mobile menu, footer, and receipt.
-* **1-Click Automation Scripts:** `START_STORE.bat` (Frontend 5173 + Backend 5000) and `STOP_STORE.bat`.
+### Phase 11: PKR Default Pricing & Pakistani Luxury Aesthetics
+* **Store Global Context (`src/context/StoreContext.jsx`):**
+  * Default currency initialized to `'PKR'` with localStorage caching.
+  * `currencies.PKR` configured with `symbol: 'Rs. '` and `rate: 50`.
+  * All 32 luxury garments render with authentic Pakistani luxury pret & couture pricing:
+    - Pret Kurtas & Trousers: Rs. 14,500 – Rs. 27,500
+    - Festive Velvet & Silk Formals: Rs. 34,000 – Rs. 44,500
+    - Menswear Prince Coats & Tuxedos: Rs. 37,500 – Rs. 59,000
+    - Handcrafted Cashmere & Shearling: Rs. 44,500 – Rs. 62,500
+  * Free shipping threshold updated to **Rs. 10,000** (equivalent to USD $200).
+  * Standard courier shipping updated to **Rs. 250** (TCS/Leopard standard rate).
+* **Announcement Bar (`src/components/AnnouncementBar.jsx`):**
+  * Rotating news updated:
+    1. *"Complimentary Nationwide Courier & Cash on Delivery (COD) across Pakistan on orders over Rs. 10,000"*
+    2. *"Festive Luxury Pret, Velvet Formals & Bridal Atelier Collection 2026 is now live"*
+    3. *"Private Atelier Concierge: Bespoke Stitching & 24/7 VIP Assistance"*
+* **Brand Trust Bar (`src/components/BrandTrustBar.jsx`):**
+  * 4 Pakistani luxury pillars:
+    1. **100% PURE FABRIC ARTISTRY:** Grade-A pure mulberry silks, handspun chiffon, and opulent hand-embroidered velvet.
+    2. **NATIONWIDE CASH ON DELIVERY:** Swift, secure COD and trackable express delivery to all cities across Pakistan.
+    3. **BESPOKE TAILORING & RETURNS:** Custom fit stitching, bespoke hemming, and effortless doorstep size exchange.
+    4. **VIP ATELIER CONCIERGE 24/7:** Direct styling consultation and WhatsApp custom order assistance.
+* **Category Showcase (`src/components/CategoryShowcase.jsx`):**
+  * Collections renamed to:
+    - *LUXURY PRET & FORMALS* (Raw Silk & Chiffon Kurtas)
+    - *MENSWEAR COUTURE* (Prince Coats, Waistcoats & Tuxedos)
+    - *FESTIVE VELVET & SILK* (Zardozi & Dabka Embellished Silhouettes)
+    - *ATELIER SHAWLS & LEATHER* (Pure Pashmina Shawls & Clutches)
+* **Hero Runway Slider (`src/components/HeroSlider.jsx`):**
+  * Slide 1: *"FESTIVE LUXURY PRET 2026 — THE ROYAL VELVET EDIT"*
+  * Slide 2: *"HAUTE COUTURE ATELIER — PURE SILK & CHIFFON RUNWAY"*
+  * Slide 3: *"BESPOKE MENSWEAR 2026 — CEREMONIAL LUXURY TAILORING"*
 
 ---
 
-## 3. Verified System File Structure
+### Previous Architectural Phases (Phases 1–8)
+* **Phase 7 & 8:** 32-piece expanded catalog & Vercel serverless microservices (`api/health.js`, `api/products.js`, `api/orders.js`, `api/verify.js`, `api/users.js`, `api/notifications.js`).
+* **Phase 1 to 6:** User account IDs, gated checkout, Stripe payment placeholder with key slot, 6-milestone order tracking, and 1-click batch scripts.
 
-| Path | Purpose |
-|---|---|
-| `api/health.js` | Vercel serverless health endpoint |
-| `api/products.js` | Live serverless products endpoint with filters |
-| `api/orders.js` | Live serverless orders endpoint (Stripe & COD) |
-| `api/verify.js` | Superadmin order verification endpoint |
-| `api/users.js` | Client account registration & query endpoint |
-| `api/notifications.js` | Live notification feed for `arifmuneeb81@gmail.com` |
-| `src/data/products.js` | 32 haute couture garments & accessories |
-| `src/context/StoreContext.jsx` | Global state with auto-upgrade & `/api` sync |
-| `src/components/TrackOrderModal.jsx` | 6-step visual consignment tracking timeline |
-| `src/components/AdminPortal.jsx` | 5-tab control center with 1-click verification |
-| `vercel.json` | Vercel full-stack rewrite configuration |
-| `SYSTEM_CHANGELOG.md` | This technical changelog document |
-| `EXECUTIVE_BUSINESS_MODEL.md` | Executive corporate presentation & business model |
+---
+
+## 3. Verified System Directory Structure
+
+| Path | Description | Access Mode |
+|---|---|---|
+| `ADMIN_PORTAL.html` | Standalone Secret Admin Portal for `arifmuneeb81@gmail.com` | **Private (Owner Only)** |
+| `LAUNCH_ADMIN_PORTAL.bat` | 1-Click launcher for private admin portal | **Private (Owner Only)** |
+| `src/App.jsx` | Public Luxury Storefront without admin leaks | **Public (Customers)** |
+| `src/components/Navbar.jsx` | Public Haute Couture Header with Pakistani categories | **Public (Customers)** |
+| `src/components/AnnouncementBar.jsx` | Pakistani news bar with nationwide COD & PKR switcher | **Public (Customers)** |
+| `src/components/BrandTrustBar.jsx` | 4 Pakistani luxury fashion trust pillars | **Public (Customers)** |
+| `src/components/CategoryShowcase.jsx` | Pakistani pret, velvet, and menswear collections | **Public (Customers)** |
+| `src/components/HeroSlider.jsx` | Cinematic high-fashion runway slides | **Public (Customers)** |
+| `src/context/StoreContext.jsx` | Global state with PKR default currency (Rs.) | **Shared** |
+| `api/orders.js` | Live serverless orders endpoint (COD & Stripe) | **Cloud Microservice** |
+| `api/verify.js` | Superadmin verification endpoint for arifmuneeb81@gmail.com | **Cloud Microservice** |
+| `api/products.js` | 32-item luxury catalog API | **Cloud Microservice** |
+| `SYSTEM_CHANGELOG.md` | Technical modifications changelog | **Documentation** |
+| `EXECUTIVE_BUSINESS_MODEL.md` | Corporate conclusion & commercial business model | **Documentation** |
 
 ---
 **Verification Signature:**  
-*Lead System Architect — LUXE APPAREL Digital Flagship*  
-*Monitored by Superadmin: arifmuneeb81@gmail.com*
+*Platform Architect & Superadmin Security Team*  
+*Authorized Store Owner: arifmuneeb81@gmail.com*

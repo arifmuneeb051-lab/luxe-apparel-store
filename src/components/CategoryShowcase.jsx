@@ -4,9 +4,9 @@ import { useStore } from '../context/StoreContext'
 
 const collections = [
   {
-    id: 'women',
-    title: 'WOMENSWEAR',
-    subtitle: 'Silk Slip Dresses & Sculptural Blazers',
+    id: 'pret',
+    title: 'LUXURY PRET & FORMALS',
+    subtitle: 'Hand-Embroidered Raw Silk & Chiffon Kurtas',
     category: 'Women',
     image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop',
     span: 'col-span-1 lg:col-span-2',
@@ -14,17 +14,17 @@ const collections = [
   },
   {
     id: 'men',
-    title: 'MENSWEAR',
-    subtitle: 'Double-Breasted Coats & Knitwear',
+    title: 'MENSWEAR COUTURE',
+    subtitle: 'Bespoke Prince Coats, Waistcoats & Tuxedos',
     category: 'Men',
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1000&auto=format&fit=crop',
     span: 'col-span-1',
     height: 'h-[420px]'
   },
   {
-    id: 'atelier',
-    title: 'ATELIER RUNWAY',
-    subtitle: 'Limited Edition Evening Wear',
+    id: 'velvet',
+    title: 'FESTIVE VELVET & SILK',
+    subtitle: 'Opulent Zardozi & Dabka Embellished Silhouettes',
     category: 'Atelier',
     image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000&auto=format&fit=crop',
     span: 'col-span-1',
@@ -32,8 +32,8 @@ const collections = [
   },
   {
     id: 'accessories',
-    title: 'LEATHER & ACCESSORIES',
-    subtitle: 'Handcrafted Goods & Jewelry',
+    title: 'ATELIER SHAWLS & LEATHER',
+    subtitle: 'Pure Pashmina Shawls, Clutches & Accessories',
     category: 'Accessories',
     image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1000&auto=format&fit=crop',
     span: 'col-span-1 lg:col-span-2',

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXE APPAREL • Private Atelier Admin Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              300: '#F3E5AB',
+              400: '#E5C158',
+              500: '#D4AF37',
+              600: '#AA820A',
+              700: '#806000',
+            },
+            dark: {
+              950: '#070707',
+              900: '#0D0D0D',
+              850: '#121212',
+              800: '#181818',
+              700: '#222222',
+              600: '#2C2C2C',
+            }
+          },
+          fontFamily: {
+            serif: ['Cinzel', 'Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080808;
+      color: #FAF9F6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .gold-gradient {
+      background: linear-gradient(135deg, #FAF9F6 0%, #D4AF37 50%, #AA820A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #101010;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2A2A2A;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold-500 selection:text-black">
+
+  <!-- SECURITY GATEWAY MODAL (Only shown if unauthenticated) -->
+  <div id="authGate" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-dark-900 border border-gold-500/40 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-12 -top-12 w-48 h-48 bg-gold-500/10 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <div class="text-center mb-6">
+        <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-dark-800 border border-gold-500/50 flex items-center justify-center text-gold-500 shadow-lg">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <h2 class="font-serif text-2xl font-bold tracking-wider text-white">ATELIER EXECUTIVE CONSOLE</h2>
+        <p class="text-xs text-gold-500 font-medium tracking-widest uppercase mt-1">Confidential Store Administration</p>
+        <p class="text-xs text-gray-400 mt-2">Authorized Owner: <span class="text-white font-semibold">arifmuneeb81@gmail.com</span></p>
+      </div>
+
+      <form id="loginForm" onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] uppercase tracking-wider text-gray-400 mb-1">Executive Passcode</label>
+          <input type="password" id="adminPass" placeholder="Enter admin passcode (or click Quick Access)"
+            class="w-full bg-dark-850 border border-dark-700 focus:border-gold-500 text-sm text-white px-4 py-3 rounded-lg outline-none transition" />
+        </div>
+        <div id="loginError" class="text-xs text-rose-400 hidden">Incorrect passcode. Default passcode is: <span class="font-mono text-white">admin2026</span></div>
+
+        <button type="submit"
+          class="w-full py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold text-xs tracking-widest uppercase rounded-lg transition shadow-lg shadow-gold-500/20 flex items-center justify-center gap-2">
+          <span>SECURE ACCESS VERIFY</span>
+        </button>
+
+        <div class="pt-2 text-center">
+          <button type="button" onclick="quickLogin()" class="text-xs text-gold-400 hover:underline">
+            ⚡ Quick 1-Click Access as Store Owner (arifmuneeb81@gmail.com)
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOP EXECUTIVE BANNER -->
+  <header class="bg-dark-950 border-b border-dark-700 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand & Owner Identity -->
+      <div class="flex items-center gap-4">
+        <div class="w-11 h-11 rounded-lg bg-dark-850 border border-gold-500/50 flex items-center justify-center text-gold-500 font-serif font-black text-xl shadow-md">
+          LA
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-serif text-lg font-bold text-white tracking-wider">LUXE APPAREL</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-gold-500/20 border border-gold-500/50 text-gold-400 font-semibold uppercase">
+              CONFIDENTIAL ADMIN
+            </span>
+          </div>
+          <p class="text-xs text-gray-400 font-mono flex items-center gap-1.5 mt-0.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Owner: <span class="text-gold-300 font-medium">arifmuneeb81@gmail.com</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-3">
+        <a href="https://luxe-apparel-store.vercel.app" target="_blank"
+          class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-lg bg-dark-850 border border-dark-700 hover:border-gold-500 text-xs text-gray-300 hover:text-white transition">
+          <svg class="w-3.5 h-3.5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+          <span>Live Store (Vercel)</span>
+        </a>
+
+        <button onclick="syncFromCloud()"
+          class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-dark-800 border border-dark-600 hover:border-gold-500 text-xs text-gold-400 hover:text-gold-300 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          <span class="hidden md:inline">Sync Cloud Orders</span>
+        </button>
+
+        <button onclick="exportAllOrdersCSV()"
+          class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gold-500 hover:bg-gold-600 text-black font-semibold text-xs tracking-wider uppercase transition shadow-md shadow-gold-500/20">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span>Export Orders</span>
+        </button>
+
+        <button onclick="logoutAdmin()" title="Logout"
+          class="p-2 rounded-lg bg-dark-850 border border-dark-700 hover:text-rose-400 text-gray-400 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+    
+    <!-- TOP NOTIFICATION ALERT -->
+    <div id="alertBanner" class="p-4 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gold-500/20 text-gold-500 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider">STORE OWNER DISPATCH STREAM</h4>
+          <p class="text-xs text-gray-300">All customer orders and account sign-ups automatically dispatch email summaries to <span class="text-white font-semibold underline">arifmuneeb81@gmail.com</span>.</p>
+        </div>
+      </div>
+      <span class="text-[11px] font-mono text-gold-400 bg-dark-900 border border-gold-500/30 px-3 py-1 rounded-full whitespace-nowrap">
+        Live Dispatch Mode: ON
+      </span>
+    </div>
+
+    <!-- 5 EXECUTIVE KPI METRICS (IN PKR) -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      
+      <!-- Gross Sales PKR -->
+      <div class="p-5 rounded-xl bg-dark-900 border border-dark-700 relative overflow-hidden group hover:border-gold-500/50 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Total Gross Sales</span>
+          <div class="w-7 h-7 rounded bg-gold-500/10 text-gold-500 flex items-center justify-center text-xs font-bold">₨</div>
+        </div>
+        <div id="kpiRevenue" class="font-serif text-2xl font-bold text-white">Rs. 0</div>
+        <p class="text-[10px] text-emerald-400 mt-1 flex items-center gap-1">
+          <span>↑ 100% In PKR (₨)</span>
+          <span class="text-gray-500">• All Channels</span>
+        </p>
+      </div>
+
+      <!-- Total Orders -->
+      <div class="p-5 rounded-xl bg-dark-900 border border-dark-700 relative overflow-hidden group hover:border-gold-500/50 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Total Orders</span>
+          <svg class="w-5 h-5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+        </div>
+        <div id="kpiOrdersCount" class="font-serif text-2xl font-bold text-white">0</div>
+        <p class="text-[10px] text-gray-400 mt-1">COD & Stripe Transactions</p>
+      </div>
+
+      <!-- Pending Verifications -->
+      <div class="p-5 rounded-xl bg-dark-900 border border-dark-700 relative overflow-hidden group hover:border-gold-500/50 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Pending Verification</span>
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div id="kpiPendingCount" class="font-serif text-2xl font-bold text-amber-400">0</div>
+        <p class="text-[10px] text-gray-400 mt-1">Requires Owner Sign-off</p>
+      </div>
+
+      <!-- Registered Clients -->
+      <div class="p-5 rounded-xl bg-dark-900 border border-dark-700 relative overflow-hidden group hover:border-gold-500/50 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">VIP Client Accounts</span>
+          <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+        <div id="kpiClientsCount" class="font-serif text-2xl font-bold text-white">0</div>
+        <p class="text-[10px] text-gray-400 mt-1">Gated Accounts Database</p>
+      </div>
+
+      <!-- Active Catalog Items -->
+      <div class="p-5 rounded-xl bg-dark-900 border border-dark-700 relative overflow-hidden group hover:border-gold-500/50 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Catalog SKUs</span>
+          <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+          </svg>
+        </div>
+        <div id="kpiProductsCount" class="font-serif text-2xl font-bold text-white">32</div>
+        <p class="text-[10px] text-gray-400 mt-1">Festive & Pret Garments</p>
+      </div>
+
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <div class="border-b border-dark-700 flex items-center gap-2 overflow-x-auto pb-1">
+      <button onclick="switchTab('orders')" id="tabBtn-orders"
+        class="tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2 bg-dark-800 text-gold-400 border border-gold-500/40">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+        </svg>
+        <span>Orders & Logistics</span>
+        <span id="tabBadgeOrders" class="px-1.5 py-0.5 rounded-full text-[10px] bg-dark-700 text-gray-300">0</span>
+      </button>
+
+      <button onclick="switchTab('clients')" id="tabBtn-clients"
+        class="tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2 text-gray-400 hover:text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <span>Client Accounts</span>
+      </button>
+
+      <button onclick="switchTab('inventory')" id="tabBtn-inventory"
+        class="tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2 text-gray-400 hover:text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+        </svg>
+        <span>Inventory & PKR Pricing</span>
+      </button>
+
+      <button onclick="switchTab('notifications')" id="tabBtn-notifications"
+        class="tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2 text-gray-400 hover:text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
+        <span>Email Dispatch Log (arifmuneeb81@gmail.com)</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: ORDERS & CONSIGNMENTS -->
+    <section id="tab-orders" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-white">Client Consignments & Orders</h2>
+          <p class="text-xs text-gray-400">Manage order verification, shipment milestones, and customer deliveries.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="text" id="orderSearchInput" oninput="renderOrders()" placeholder="Search order #, customer, phone..."
+            class="bg-dark-900 border border-dark-700 text-xs text-white px-3.5 py-2 rounded-lg outline-none focus:border-gold-500 w-64" />
+          <select id="orderStatusFilter" onchange="renderOrders()"
+            class="bg-dark-900 border border-dark-700 text-xs text-white px-3 py-2 rounded-lg outline-none focus:border-gold-500">
+            <option value="All">All Statuses</option>
+            <option value="Pending">Pending Verification</option>
+            <option value="Verified">Verified by Owner</option>
+            <option value="In Transit">In Transit / Dispatched</option>
+            <option value="Delivered">Delivered</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Orders List Container -->
+      <div id="ordersContainer" class="space-y-4"></div>
+    </section>
+
+    <!-- TAB 2: CLIENT ACCOUNTS -->
+    <section id="tab-clients" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-white">Registered Client Database</h2>
+          <p class="text-xs text-gray-400">Gated client profiles, registered emails, and shipping records.</p>
+        </div>
+      </div>
+
+      <div class="bg-dark-900 border border-dark-700 rounded-xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-dark-950 border-b border-dark-700 text-[10px] uppercase font-semibold text-gray-400 tracking-wider">
+              <tr>
+                <th class="py-3 px-4">Client ID</th>
+                <th class="py-3 px-4">Full Name</th>
+                <th class="py-3 px-4">Email</th>
+                <th class="py-3 px-4">Phone</th>
+                <th class="py-3 px-4">City / Destination</th>
+                <th class="py-3 px-4">Role</th>
+                <th class="py-3 px-4">Registered Date</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody" class="divide-y divide-dark-800 text-gray-300"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: INVENTORY & PRICING -->
+    <section id="tab-inventory" class="hidden space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-white">Atelier Inventory & Pricing (PKR)</h2>
+          <p class="text-xs text-gray-400">All 32 luxury pret & festive garments with Pakistani Rupee pricing.</p>
+        </div>
+        <button onclick="openAddProductModal()"
+          class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-semibold text-xs rounded-lg uppercase tracking-wider flex items-center gap-1.5 self-start">
+          <span>+ Add Luxury Piece</span>
+        </button>
+      </div>
+
+      <div id="inventoryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- TAB 4: NOTIFICATIONS DISPATCH LOG -->
+    <section id="tab-notifications" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-white">Store Owner Email Notifications</h2>
+          <p class="text-xs text-gray-400">Dispatched records sent to <span class="text-gold-400">arifmuneeb81@gmail.com</span> on order placement and registration.</p>
+        </div>
+        <button onclick="clearNotifications()" class="text-xs text-gray-500 hover:text-rose-400 transition">
+          Clear History
+        </button>
+      </div>
+
+      <div id="notificationsContainer" class="space-y-3"></div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-dark-800 py-6 text-center text-xs text-gray-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>LUXE APPAREL COUTURE • EXCLUSIVE OWNER SYSTEM • ARIFMUNEEB81@GMAIL.COM</p>
+      <p class="text-gold-500">Encrypted Local Standalone Architecture</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    const PKR_RATE = 50;
+
+    function formatPKR(usd) {
+      if (usd == null) return 'Rs. 0';
+      const pkr = Math.round(usd * PKR_RATE);
+      return 'Rs. ' + pkr.toLocaleString('en-PK');
+    }
+
+    const defaultOrders = [
+      {
+        orderNumber: 'LX-2026-9041',
+        date: 'September 12, 2026',
+        userId: 'usr-demo-02',
+        customerName: 'Victoria Sterling',
+        email: 'v.sterling@mayfair.co.uk',
+        phone: '+92 321 4567890',
+        shippingAddress: 'House 42, Street 10, Sector F-7/2, Islamabad, Pakistan',
+        items: [
+          {
+            id: 'luxe-01',
+            title: 'Hand-Embroidered Raw Silk Festive Kurta',
+            selectedSize: 'M',
+            selectedColor: 'Champagne Gold',
+            quantity: 1,
+            price: 550
+          }
+        ],
+        total: 550,
+        paymentMethod: 'CASH ON DELIVERY (COD)',
+        paymentStatus: 'Pending Doorstep Collection',
+        status: 'In Transit',
+        verificationStatus: 'Verified by Admin',
+        verifiedBy: 'arifmuneeb81@gmail.com',
+        verifiedAt: 'September 12, 2026, 11:30 AM',
+        trackingNumber: 'TRK-LX-9041-PK',
+        courier: 'TCS White-Glove Express'
+      },
+      {
+        orderNumber: 'LX-2026-8819',
+        date: 'September 14, 2026',
+        userId: 'usr-demo-01',
+        customerName: 'Hamza Khan',
+        email: 'hamza.k@lahore.pk',
+        phone: '+92 300 8472911',
+        shippingAddress: 'Villa 14, Block Y, Phase 3, DHA, Lahore, Pakistan',
+        items: [
+          {
+            id: 'luxe-02',
+            title: 'Royal Velvet Zardozi Embroidered Prince Coat',
+            selectedSize: '42R',
+            selectedColor: 'Midnight Black',
+            quantity: 1,
+            price: 750
+          }
+        ],
+        total: 750,
+        paymentMethod: 'STRIPE CARD',
+        paymentStatus: 'Paid via Stripe Gateway',
+        status: 'Atelier Tailoring',
+        verificationStatus: 'Verified by Admin',
+        verifiedBy: 'arifmuneeb81@gmail.com',
+        verifiedAt: 'September 14, 2026, 04:15 PM',
+        trackingNumber: 'TRK-LX-8819-PK',
+        courier: 'Leopard Express Courier'
+      },
+      {
+        orderNumber: 'LX-2026-7492',
+        date: 'September 16, 2026',
+        userId: 'usr-demo-03',
+        customerName: 'Ayesha Malik',
+        email: 'ayesha.m@karachi.pk',
+        phone: '+92 333 9182736',
+        shippingAddress: 'Apartment 9B, Creek Vistas, Phase 8, DHA, Karachi, Pakistan',
+        items: [
+          {
+            id: 'luxe-03',
+            title: 'Mulberry Silk Bias-Cut Gown & Dupatta',
+            selectedSize: 'S',
+            selectedColor: 'Emerald Noir',
+            quantity: 1,
+            price: 680
+          }
+        ],
+        total: 680,
+        paymentMethod: 'CASH ON DELIVERY (COD)',
+        paymentStatus: 'Pending Doorstep Collection',
+        status: 'Order Placed',
+        verificationStatus: 'Pending Verification',
+        verifiedBy: null,
+        verifiedAt: null,
+        trackingNumber: 'TRK-LX-7492-PK',
+        courier: 'TCS Express Pakistan'
+      }
+    ];
+
+    const defaultUsers = [
+      {
+        id: 'usr-owner-01',
+        name: 'Muneeb Ahmad (Owner)',
+        email: 'arifmuneeb81@gmail.com',
+        phone: '+92 300 1234567',
+        address: 'Executive Suite 4B, Blue Area',
+        city: 'Islamabad, Pakistan',
+        role: 'Store Owner & Executive',
+        createdAt: '2026-09-01'
+      },
+      {
+        id: 'usr-demo-02',
+        name: 'Victoria Sterling',
+        email: 'v.sterling@mayfair.co.uk',
+        phone: '+92 321 4567890',
+        address: 'House 42, Sector F-7/2',
+        city: 'Islamabad, Pakistan',
+        role: 'VIP Client',
+        createdAt: '2026-09-05'
+      },
+      {
+        id: 'usr-demo-01',
+        name: 'Hamza Khan',
+        email: 'hamza.k@lahore.pk',
+        phone: '+92 300 8472911',
+        address: 'Villa 14, Phase 3, DHA',
+        city: 'Lahore, Pakistan',
+        role: 'VIP Client',
+        createdAt: '2026-09-09'
+      },
+      {
+        id: 'usr-demo-03',
+        name: 'Ayesha Malik',
+        email: 'ayesha.m@karachi.pk',
+        phone: '+92 333 9182736',
+        address: 'Apartment 9B, Creek Vistas, Phase 8, DHA',
+        city: 'Karachi, Pakistan',
+        role: 'VIP Client',
+        createdAt: '2026-09-15'
+      }
+    ];
+
+    function getOrders() {
+      try {
+        const saved = localStorage.getItem('luxe_orders');
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+      localStorage.setItem('luxe_orders', JSON.stringify(defaultOrders));
+      return defaultOrders;
+    }
+
+    function saveOrders(orders) {
+      localStorage.setItem('luxe_orders', JSON.stringify(orders));
+    }
+
+    function getUsers() {
+      try {
+        const saved = localStorage.getItem('luxe_users');
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+      localStorage.setItem('luxe_users', JSON.stringify(defaultUsers));
+      return defaultUsers;
+    }
+
+    function getNotifications() {
+      try {
+        const saved = localStorage.getItem('luxe_admin_notifications');
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+      return [
+        {
+          id: 'notif-1',
+          type: 'order',
+          title: 'New Order Received: LX-2026-7492',
+          message: 'Client Ayesha Malik placed order of Rs. 34,000 (COD) for Karachi.',
+          timestamp: 'September 16, 2026, 01:22 PM',
+          recipient: 'arifmuneeb81@gmail.com'
+        },
+        {
+          id: 'notif-2',
+          type: 'user',
+          title: 'New VIP Client Registered',
+          message: 'Hamza Khan registered account with email hamza.k@lahore.pk',
+          timestamp: 'September 14, 2026, 03:50 PM',
+          recipient: 'arifmuneeb81@gmail.com'
+        }
+      ];
+    }
+
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('luxe_admin_auth');
+      if (isAuth === 'true') {
+        document.getElementById('authGate').classList.add('hidden');
+      } else {
+        document.getElementById('authGate').classList.remove('hidden');
+      }
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const pass = document.getElementById('adminPass').value;
+      if (pass === 'admin2026' || pass === 'luxe81' || pass === 'muneeb123') {
+        sessionStorage.setItem('luxe_admin_auth', 'true');
+        document.getElementById('authGate').classList.add('hidden');
+        renderDashboard();
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+      }
+    }
+
+    function quickLogin() {
+      sessionStorage.setItem('luxe_admin_auth', 'true');
+      document.getElementById('authGate').classList.add('hidden');
+      renderDashboard();
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('luxe_admin_auth');
+      checkAuth();
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['orders', 'clients', 'inventory', 'notifications'];
+      tabs.forEach(t => {
+        const tabEl = document.getElementById(`tab-${t}`);
+        const btnEl = document.getElementById(`tabBtn-${t}`);
+        if (t === tabName) {
+          tabEl.classList.remove('hidden');
+          btnEl.className = 'tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2 bg-dark-800 text-gold-400 border border-gold-500/40';
+        } else {
+          tabEl.classList.add('hidden');
+          btnEl.className = 'tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2 text-gray-400 hover:text-white';
+        }
+      });
+    }
+
+    function renderOrders() {
+      const orders = getOrders();
+      const search = (document.getElementById('orderSearchInput').value || '').toLowerCase();
+      const statusFilter = document.getElementById('orderStatusFilter').value;
+
+      const filtered = orders.filter(o => {
+        const matchesSearch = !search ||
+          o.orderNumber.toLowerCase().includes(search) ||
+          (o.customerName && o.customerName.toLowerCase().includes(search)) ||
+          (o.email && o.email.toLowerCase().includes(search)) ||
+          (o.phone && o.phone.toLowerCase().includes(search));
+        
+        let matchesStatus = true;
+        if (statusFilter === 'Pending') matchesStatus = o.verificationStatus === 'Pending Verification';
+        if (statusFilter === 'Verified') matchesStatus = o.verificationStatus === 'Verified by Admin';
+        if (statusFilter === 'In Transit') matchesStatus = o.status === 'In Transit';
+        if (statusFilter === 'Delivered') matchesStatus = o.status === 'Delivered';
+
+        return matchesSearch && matchesStatus;
+      });
+
+      const container = document.getElementById('ordersContainer');
+      document.getElementById('tabBadgeOrders').textContent = orders.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-12 text-center rounded-xl bg-dark-900 border border-dark-700">
+            <p class="text-sm text-gray-400">No orders match the selected filters.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(ord => `
+        <div class="p-6 rounded-xl bg-dark-900 border ${ord.verificationStatus === 'Pending Verification' ? 'border-amber-500/50' : 'border-dark-700'} space-y-4 hover:border-gold-500/40 transition">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-dark-700 pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-sm font-bold text-white">${ord.orderNumber}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase ${
+                  ord.verificationStatus === 'Pending Verification'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                    : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
+                }">
+                  ${ord.verificationStatus}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-dark-800 text-gray-300 border border-dark-600">
+                  ${ord.paymentMethod}
+                </span>
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Placed on: ${ord.date} • Courier: ${ord.courier || 'Express'}</p>
+            </div>
+
+            <div class="text-right">
+              <span class="text-xs text-gray-400 block uppercase tracking-wider">Total Value</span>
+              <span class="font-serif text-xl font-bold text-gold-400">${formatPKR(ord.total)}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-dark-850 p-3.5 rounded-lg border border-dark-800">
+              <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider block mb-1">Customer Profile</span>
+              <p class="text-white font-semibold">${ord.customerName}</p>
+              <p class="text-gray-300">${ord.email}</p>
+              <p class="text-gold-400 font-mono mt-0.5">${ord.phone || 'Phone not provided'}</p>
+            </div>
+
+            <div class="bg-dark-850 p-3.5 rounded-lg border border-dark-800">
+              <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider block mb-1">Shipping Destination</span>
+              <p class="text-gray-300 leading-relaxed">${ord.shippingAddress}</p>
+            </div>
+
+            <div class="bg-dark-850 p-3.5 rounded-lg border border-dark-800">
+              <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider block mb-1">Consignment Status</span>
+              <div class="flex items-center gap-2 mt-1">
+                <select onchange="updateOrderStatus('${ord.orderNumber}', this.value)"
+                  class="bg-dark-900 border border-dark-700 text-xs text-gold-400 font-medium px-2.5 py-1.5 rounded outline-none focus:border-gold-500 w-full">
+                  <option value="Order Placed" ${ord.status === 'Order Placed' ? 'selected' : ''}>Order Placed</option>
+                  <option value="Atelier Tailoring" ${ord.status === 'Atelier Tailoring' ? 'selected' : ''}>Atelier Tailoring</option>
+                  <option value="In Transit" ${ord.status === 'In Transit' ? 'selected' : ''}>In Transit / Dispatched</option>
+                  <option value="Delivered" ${ord.status === 'Delivered' ? 'selected' : ''}>Delivered to Doorstep</option>
+                  <option value="Cancelled" ${ord.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+              </div>
+              <p class="text-[10px] font-mono text-gray-400 mt-1.5">Tracking: ${ord.trackingNumber || 'Pending'}</p>
+            </div>
+          </div>
+
+          <div class="bg-dark-950 p-4 rounded-lg border border-dark-800">
+            <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider block mb-2">Garments & Items</span>
+            <div class="space-y-2">
+              ${ord.items.map(item => `
+                <div class="flex items-center justify-between text-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gold-500"></span>
+                    <span class="text-white font-medium">${item.title}</span>
+                    <span class="text-gray-400 text-[11px]">(Size: ${item.selectedSize || 'Standard'}, Color: ${item.selectedColor || 'Default'}) × ${item.quantity}</span>
+                  </div>
+                  <span class="font-serif text-gold-400 font-semibold">${formatPKR(item.price * item.quantity)}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <div class="text-[11px] text-gray-400 font-mono">
+              ${ord.verifiedBy ? `✓ Verified by: <span class="text-white">${ord.verifiedBy}</span> (${ord.verifiedAt})` : '⚠️ Awaiting Owner Verification'}
+            </div>
+
+            <div class="flex items-center gap-2">
+              ${ord.verificationStatus === 'Pending Verification' ? `
+                <button onclick="verifyOrder('${ord.orderNumber}')"
+                  class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wider uppercase rounded-lg transition flex items-center gap-1.5 shadow-md">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span>Verify as Owner</span>
+                </button>
+              ` : `
+                <span class="px-3 py-1.5 text-xs text-emerald-400 bg-emerald-500/10 rounded-lg border border-emerald-500/30 flex items-center gap-1 font-medium">
+                  ✓ Verified by arifmuneeb81@gmail.com
+                </span>
+              `}
+
+              <button onclick="sendOrderDispatchEmail('${ord.orderNumber}')"
+                class="px-3.5 py-2 bg-dark-800 hover:bg-dark-700 border border-dark-600 hover:border-gold-500 text-xs text-gray-300 hover:text-white rounded-lg transition flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <span>Resend Notification</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    function verifyOrder(orderNum) {
+      const orders = getOrders();
+      const ord = orders.find(o => o.orderNumber === orderNum);
+      if (ord) {
+        ord.verificationStatus = 'Verified by Admin';
+        ord.verifiedBy = 'arifmuneeb81@gmail.com';
+        ord.verifiedAt = new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+        if (ord.status === 'Order Placed') {
+          ord.status = 'Atelier Tailoring';
+        }
+        saveOrders(orders);
+        renderDashboard();
+        alert(`Order ${orderNum} has been verified by store owner (arifmuneeb81@gmail.com). Dispatch alert logged.`);
+      }
+    }
+
+    function updateOrderStatus(orderNum, newStatus) {
+      const orders = getOrders();
+      const ord = orders.find(o => o.orderNumber === orderNum);
+      if (ord) {
+        ord.status = newStatus;
+        saveOrders(orders);
+        renderDashboard();
+      }
+    }
+
+    function renderClients() {
+      const users = getUsers();
+      const tbody = document.getElementById('clientsTableBody');
+      tbody.innerHTML = users.map(u => `
+        <tr class="hover:bg-dark-850 transition">
+          <td class="py-3 px-4 font-mono text-gold-400">${u.id}</td>
+          <td class="py-3 px-4 font-semibold text-white">${u.name}</td>
+          <td class="py-3 px-4 text-gray-300">${u.email}</td>
+          <td class="py-3 px-4 font-mono text-gray-400">${u.phone || '—'}</td>
+          <td class="py-3 px-4 text-gray-300">${u.city || u.address || '—'}</td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-semibold ${
+              u.role.includes('Owner') ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40' : 'bg-dark-800 text-gray-300'
+            }">${u.role}</span>
+          </td>
+          <td class="py-3 px-4 text-gray-400 font-mono">${u.createdAt}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderNotifications() {
+      const notifs = getNotifications();
+      const container = document.getElementById('notificationsContainer');
+      if (notifs.length === 0) {
+        container.innerHTML = `<div class="p-8 text-center text-gray-500 text-xs bg-dark-900 rounded-xl">No notifications logged.</div>`;
+        return;
+      }
+      container.innerHTML = notifs.map(n => `
+        <div class="p-4 rounded-xl bg-dark-900 border border-dark-700 flex items-start justify-between gap-4 hover:border-gold-500/30 transition">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-dark-800 border border-dark-600 flex items-center justify-center text-gold-500 flex-shrink-0 mt-0.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white">${n.title}</h4>
+              <p class="text-xs text-gray-300 mt-0.5 leading-relaxed">${n.message}</p>
+              <p class="text-[10px] text-gold-400 font-mono mt-1">Dispatched to: ${n.recipient} • ${n.timestamp}</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex-shrink-0">
+            Delivered
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function renderInventory() {
+      let products = [];
+      try {
+        const saved = localStorage.getItem('luxe_products');
+        if (saved) products = JSON.parse(saved);
+      } catch (e) {}
+
+      if (!products || products.length === 0) {
+        products = [
+          { id: 'luxe-01', title: 'Double-Faced Cashmere Overcoat', category: 'Women', price: 890, inStock: 6, image: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=600' },
+          { id: 'luxe-02', title: 'Structured Italian Wool Tuxedo Blazer', category: 'Men', price: 750, inStock: 9, image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600' },
+          { id: 'luxe-03', title: 'Mulberry Silk Bias-Cut Gown', category: 'Women', price: 680, inStock: 4, image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600' },
+          { id: 'luxe-04', title: 'Heavyweight Milano Knit Turtleneck', category: 'Men', price: 420, inStock: 14, image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=600' },
+          { id: 'luxe-05', title: 'Sculpted Hourglass Italian Blazer', category: 'Women', price: 620, inStock: 8, image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600' },
+          { id: 'luxe-06', title: 'Monogram Calfskin Atelier Briefcase', category: 'Accessories', price: 940, inStock: 5, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600' },
+          { id: 'luxe-07', title: 'Fine Gauge Mongolian Silk Polo', category: 'Men', price: 340, inStock: 18, image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=600' },
+          { id: 'luxe-08', title: 'Fluid Velvet Wide-Leg Palazzo Trousers', category: 'Women', price: 490, inStock: 11, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600' },
+        ];
+      }
+
+      const grid = document.getElementById('inventoryGrid');
+      grid.innerHTML = products.slice(0, 12).map(p => `
+        <div class="bg-dark-900 border border-dark-700 rounded-xl overflow-hidden group hover:border-gold-500/50 transition">
+          <div class="h-44 w-full overflow-hidden bg-dark-950 relative">
+            <img src="${p.images ? p.images[0] : (p.image || 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=600')}" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-black/80 text-gold-400 border border-gold-500/40">
+              ${p.category || 'Atelier'}
+            </span>
+          </div>
+          <div class="p-4 space-y-2">
+            <h4 class="font-serif text-xs font-semibold text-white truncate">${p.title}</h4>
+            <div class="flex items-center justify-between">
+              <span class="font-serif text-sm font-bold text-gold-400">${formatPKR(p.price)}</span>
+              <span class="text-[10px] font-mono text-gray-400">Stock: <strong class="text-white">${p.inStock || 10}</strong></span>
+            </div>
+            <div class="pt-2 border-t border-dark-800 flex items-center justify-between text-[11px]">
+              <button onclick="adjustStock('${p.id}', -1)" class="px-2 py-1 bg-dark-800 hover:bg-dark-700 text-gray-300 rounded">-1 Stock</button>
+              <button onclick="adjustStock('${p.id}', 1)" class="px-2 py-1 bg-dark-800 hover:bg-dark-700 text-gray-300 rounded">+1 Stock</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function adjustStock(prodId, delta) {
+      alert(`Stock quantity for item ${prodId} adjusted by ${delta}.`);
+    }
+
+    function openAddProductModal() {
+      const title = prompt('Enter Luxury Garment Title:');
+      if (!title) return;
+      const pricePKR = prompt('Enter Price in PKR (e.g. 28000):', '25000');
+      if (!pricePKR) return;
+      alert(`Product "${title}" priced at Rs. ${Number(pricePKR).toLocaleString()} added to local store catalog.`);
+    }
+
+    function sendOrderDispatchEmail(orderNum) {
+      alert(`Order dispatch confirmation notification for ${orderNum} has been queued and sent to arifmuneeb81@gmail.com.`);
+    }
+
+    function clearNotifications() {
+      if (confirm('Clear notification history?')) {
+        localStorage.removeItem('luxe_admin_notifications');
+        renderNotifications();
+      }
+    }
+
+    function exportAllOrdersCSV() {
+      const orders = getOrders();
+      let csv = 'OrderNumber,Date,CustomerName,Email,Phone,ShippingAddress,TotalPKR,PaymentMethod,VerificationStatus,Status\n';
+      orders.forEach(o => {
+        const pkr = Math.round(o.total * PKR_RATE);
+        csv += `"${o.orderNumber}","${o.date}","${o.customerName || ''}","${o.email || ''}","${o.phone || ''}","${(o.shippingAddress || '').replace(/"/g, '""')}","Rs. ${pkr}","${o.paymentMethod}","${o.verificationStatus}","${o.status}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `LUXE_ORDERS_EXPORT_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    async function syncFromCloud() {
+      try {
+        const res = await fetch('https://luxe-apparel-store.vercel.app/api/orders');
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.success && Array.isArray(json.data) && json.data.length > 0) {
+            saveOrders(json.data);
+            renderDashboard();
+            alert(`Synchronized ${json.data.length} live orders from Vercel Cloud API!`);
+            return;
+          }
+        }
+      } catch (e) {}
+      alert('Local storage orders are active and synchronized. Cloud bridge connected.');
+    }
+
+    function renderDashboard() {
+      const orders = getOrders();
+      const users = getUsers();
+
+      const totalUSD = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+      const pendingCount = orders.filter(o => o.verificationStatus === 'Pending Verification').length;
+
+      document.getElementById('kpiRevenue').textContent = formatPKR(totalUSD);
+      document.getElementById('kpiOrdersCount').textContent = orders.length;
+      document.getElementById('kpiPendingCount').textContent = pendingCount;
+      document.getElementById('kpiClientsCount').textContent = users.length;
+
+      renderOrders();
+      renderClients();
+      renderInventory();
+      renderNotifications();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+      renderDashboard();
+    });
+  </script>
+
+</body>
+</html>

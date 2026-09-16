@@ -3,9 +3,9 @@ import { Sparkles, Globe, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-
 import { useStore, currencies } from '../context/StoreContext'
 
 const messages = [
-  'Complimentary Worldwide Express Delivery on orders over $150',
-  'Autumn / Winter 2026 Haute Couture Collection is now live',
-  'Private Atelier Concierge: White-Glove Support 24/7',
+  'Complimentary Nationwide Courier & Cash on Delivery (COD) across Pakistan on orders over Rs. 10,000',
+  'Festive Luxury Pret, Velvet Formals & Bridal Atelier Collection 2026 is now live',
+  'Private Atelier Concierge: Bespoke Stitching & 24/7 VIP Assistance',
 ]
 
 export default function AnnouncementBar() {

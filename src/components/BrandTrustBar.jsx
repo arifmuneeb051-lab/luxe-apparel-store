@@ -4,23 +4,23 @@ import { ShieldCheck, Truck, RotateCcw, Headphones } from 'lucide-react'
 const pillars = [
   {
     icon: ShieldCheck,
-    title: 'HAUTE CRAFTSMANSHIP',
-    desc: 'Pure Italian cashmere, double-faced wool, & organic mulberry silks.',
+    title: '100% PURE FABRIC ARTISTRY',
+    desc: 'Grade-A pure mulberry silks, handspun chiffon, and opulent hand-embroidered velvet.',
   },
   {
     icon: Truck,
-    title: 'COMPLIMENTARY EXPRESS',
-    desc: 'White-glove insured global delivery dispatched within 24 hours.',
+    title: 'NATIONWIDE CASH ON DELIVERY',
+    desc: 'Swift, secure COD and trackable express delivery to all cities across Pakistan.',
   },
   {
     icon: RotateCcw,
-    title: '30-DAY ATELIER RETURNS',
-    desc: 'Hassle-free doorstep pickup & bespoke size exchange service.',
+    title: 'BESPOKE TAILORING & RETURNS',
+    desc: 'Custom fit stitching, bespoke hemming, and effortless doorstep size exchange.',
   },
   {
     icon: Headphones,
-    title: 'PRIVATE CONCIERGE 24/7',
-    desc: 'Direct styling advice & wardrobe curation from our certified atelier.',
+    title: 'VIP ATELIER CONCIERGE 24/7',
+    desc: 'Direct styling consultation and WhatsApp custom order assistance.',
   },
 ]
 

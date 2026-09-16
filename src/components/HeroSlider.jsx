@@ -4,33 +4,33 @@ import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 1,
-    collection: 'AUTUMN / WINTER 2026 RUNWAY',
-    title: 'THE ART OF TAILORING',
-    subtitle: 'Sculptural silhouettes crafted from double-faced Italian cashmere and structured virgin wool.',
-    ctaText: 'EXPLORE THE RUNWAY',
-    ctaCategory: 'Tailoring',
+    collection: 'FESTIVE LUXURY PRET 2026',
+    title: 'THE ROYAL VELVET EDIT',
+    subtitle: 'Opulent silk velvet adorned with intricate zardozi, hand-embroidery, and fine dabka embellishments.',
+    ctaText: 'EXPLORE FESTIVE COLLECTION',
+    ctaCategory: 'Velvet',
     image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop',
-    tag: 'NEW RUNWAY DROP'
+    tag: 'NEW FESTIVE DROP'
   },
   {
     id: 2,
-    collection: 'HAUTE COUTURE EDITION',
-    title: 'EVENING SILK & VELVET',
-    subtitle: 'Midnight hues, hand-draped mulberry silks, and sharp architectural shoulders.',
+    collection: 'HAUTE COUTURE ATELIER',
+    title: 'PURE SILK & CHIFFON RUNWAY',
+    subtitle: 'Floor-sweeping silhouettes, handcrafted tissue organza dupattas, and fluid mulberry silk formals.',
     ctaText: 'SHOP THE ATELIER',
     ctaCategory: 'Atelier',
     image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop',
-    tag: 'LIMITED EDITION'
+    tag: 'LIMITED COUTURE'
   },
   {
     id: 3,
-    collection: 'CONTEMPORARY ESSENTIALS',
-    title: 'URBAN MINIMALISM',
-    subtitle: 'Relaxed luxury outerwear and heavyweight organic cotton knitted in Milan.',
-    ctaText: 'DISCOVER ESSENTIALS',
-    ctaCategory: 'Essentials',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop',
-    tag: 'MOST COVETED'
+    collection: 'BESPOKE MENSWEAR 2026',
+    title: 'CEREMONIAL LUXURY TAILORING',
+    subtitle: 'Bespoke prince coats, handwoven raw silk kurtas, and structured Italian wool waistcoats.',
+    ctaText: 'DISCOVER MENSWEAR',
+    ctaCategory: 'Men',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2070&auto=format&fit=crop',
+    tag: 'ROYAL MENSWEAR'
   }
 ]
 

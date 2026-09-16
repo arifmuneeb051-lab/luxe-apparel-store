@@ -4,14 +4,21 @@ import { products as initialProducts } from '../data/products'
 const StoreContext = createContext()
 
 export const currencies = {
+  PKR: { symbol: 'Rs. ', rate: 50, label: 'PKR (Rs)' },
   USD: { symbol: '$', rate: 1, label: 'USD ($)' },
   EUR: { symbol: '€', rate: 0.92, label: 'EUR (€)' },
   GBP: { symbol: '£', rate: 0.79, label: 'GBP (£)' },
-  PKR: { symbol: 'Rs', rate: 278, label: 'PKR (₨)' },
 }
 
 export function StoreProvider({ children }) {
-  const [currency, setCurrency] = useState('USD')
+  const [currency, setCurrency] = useState(() => {
+    try {
+      const saved = localStorage.getItem('luxe_currency')
+      return saved || 'PKR'
+    } catch {
+      return 'PKR'
+    }
+  })
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [activeGender, setActiveGender] = useState('All')
@@ -346,6 +353,14 @@ export function StoreProvider({ children }) {
       console.error(e)
     }
   }, [adminNotifications])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('luxe_currency', currency)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [currency])
 
   // Live Serverless Backend Sync for Vercel
   useEffect(() => {
@@ -726,9 +741,9 @@ export function StoreProvider({ children }) {
     }
   }
 
-  const freeShippingThresholdUSD = 500
+  const freeShippingThresholdUSD = 200
   const isFreeShipping = cartSubtotalUSD >= freeShippingThresholdUSD || cartItems.length === 0
-  const shippingUSD = cartItems.length === 0 ? 0 : (isFreeShipping ? 0 : 35)
+  const shippingUSD = cartItems.length === 0 ? 0 : (isFreeShipping ? 0 : 5)
   const taxUSD = (cartSubtotalUSD - discountUSD) * 0.08
   const cartTotalUSD = Math.max(0, cartSubtotalUSD - discountUSD + shippingUSD + taxUSD)
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Search, Heart, ShoppingBag, Menu, X, ArrowRight, User, Shield, Truck } from 'lucide-react'
+import { Search, Heart, ShoppingBag, Menu, X, ArrowRight, User, Truck } from 'lucide-react'
 import { useStore } from '../context/StoreContext'
 
 export default function Navbar() {
@@ -17,7 +17,6 @@ export default function Navbar() {
     setIsAuthModalOpen,
     setAuthModalMode,
     setIsProfileOpen,
-    setIsAdminOpen,
     setIsTrackOrderOpen
   } = useStore()
 
@@ -25,10 +24,11 @@ export default function Navbar() {
 
   const navLinks = [
     { label: 'ALL COLLECTIONS', value: 'All' },
-    { label: 'WOMEN', value: 'Women' },
-    { label: 'MEN', value: 'Men' },
-    { label: 'NEW ARRIVALS', value: 'New' },
-    { label: 'ATELIER EDIT', value: 'Atelier' },
+    { label: 'FESTIVE LUXURY', value: 'Festive' },
+    { label: 'LUXURY PRET', value: 'Pret' },
+    { label: 'MENSWEAR COUTURE', value: 'Men' },
+    { label: 'VELVET & SILK', value: 'Velvet' },
+    { label: 'BRIDAL ATELIER', value: 'Atelier' },
   ]
 
   const handleUserClick = () => {
@@ -174,16 +174,6 @@ export default function Navbar() {
                 Bag {cartCount > 0 ? `(${cartCount})` : ''}
               </span>
             </button>
-
-            {/* Admin Management Toggle */}
-            <button
-              onClick={() => setIsAdminOpen(true)}
-              title="Atelier Admin Portal"
-              className="hidden lg:flex items-center p-1.5 rounded bg-[#181818] border border-[#2B2B2B] text-[#888888] hover:text-[#D4AF37] hover:border-[#D4AF37] transition text-[10px] gap-1"
-            >
-              <Shield className="w-3.5 h-3.5" />
-              <span>Admin</span>
-            </button>
           </div>
 
         </div>
@@ -304,17 +294,6 @@ export default function Navbar() {
                 >
                   <Truck className="w-4 h-4 text-[#D4AF37]" />
                   <span>Track Consignment / Orders</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    setIsAdminOpen(true)
-                  }}
-                  className="text-left text-xs tracking-widest uppercase py-2 text-[#888888] hover:text-[#D4AF37] flex items-center gap-2"
-                >
-                  <Shield className="w-4 h-4" />
-                  <span>Atelier Admin Portal</span>
                 </button>
               </div>
             </div>

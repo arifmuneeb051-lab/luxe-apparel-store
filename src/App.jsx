@@ -11,11 +11,10 @@ import QuickViewModal from './components/QuickViewModal'
 import CheckoutModal from './components/CheckoutModal'
 import AuthModal from './components/AuthModal'
 import UserProfileModal from './components/UserProfileModal'
-import AdminPortal from './components/AdminPortal'
 import TrackOrderModal from './components/TrackOrderModal'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
-import { CheckCircle2, Sparkles, Rocket } from 'lucide-react'
+import { CheckCircle2, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react'
 
 function StoreContent() {
   const { setActiveCategory } = useStore()
@@ -53,9 +52,6 @@ function StoreContent() {
       {/* Atelier Order Tracking Modal */}
       <TrackOrderModal />
 
-      {/* Atelier Admin Management Portal */}
-      <AdminPortal />
-
       {/* Top Luxury Announcement Bar */}
       <AnnouncementBar />
 
@@ -76,7 +72,7 @@ function StoreContent() {
         <ProductGrid />
       </div>
 
-      {/* Final Production & Operational Milestone Banner */}
+      {/* Exclusive Haute Couture VIP Privilege Banner */}
       <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="p-8 sm:p-12 rounded-2xl bg-gradient-to-r from-[#121212] via-[#1A1A1A] to-[#121212] border border-[#D4AF37]/30 relative overflow-hidden shadow-2xl">
           
@@ -86,13 +82,13 @@ function StoreContent() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#202020] border border-[#D4AF37]/60 text-[#D4AF37] text-[10px] tracking-luxury uppercase font-semibold mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>100% Production Ready • User IDs & Stripe Ready</span>
+                <span>LUXURY PRET & FESTIVE COUTURE 2026</span>
               </div>
               <h3 className="font-serif text-3xl sm:text-4xl font-light text-white mb-2">
-                LUXE APPAREL Store with Client Accounts & Stripe
+                The House of Luxe • Bespoke Atelier Experience
               </h3>
               <p className="text-xs sm:text-sm text-[#AAAAAA] font-light max-w-2xl leading-relaxed">
-                Client ID sign-up & authentication, gated checkout, Stripe payment placeholder with key slot, swapped haute-couture navigation, MongoDB models, and Atelier Admin Portal are fully integrated.
+                Indulge in pure mulberry silks, hand-embroidered velvet formals, and master tailoring. Complimentary nationwide Cash on Delivery across Pakistan and white-glove doorstep delivery.
               </p>
             </div>
 
@@ -101,11 +97,11 @@ function StoreContent() {
                 onClick={() => scrollToCatalog('All')}
                 className="px-8 py-4 bg-[#D4AF37] hover:bg-[#B38F22] text-black font-semibold text-xs tracking-luxury uppercase rounded-lg transition duration-300 shadow-xl shadow-[#D4AF37]/20 flex items-center gap-2"
               >
-                <Rocket className="w-4 h-4" />
                 <span>SHOP ENTIRE COLLECTION</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
               <span className="text-[10px] tracking-widest text-[#777777] uppercase font-mono">
-                1-Click Controls: START_STORE.bat & STOP_STORE.bat
+                Nationwide COD • Bespoke Stitching • 100% Pure Fabrics
               </span>
             </div>
           </div>
