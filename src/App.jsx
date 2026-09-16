@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { StoreProvider, useStore } from './context/StoreContext'
 import AnnouncementBar from './components/AnnouncementBar'
 import Navbar from './components/Navbar'
@@ -12,13 +12,36 @@ import CheckoutModal from './components/CheckoutModal'
 import AuthModal from './components/AuthModal'
 import UserProfileModal from './components/UserProfileModal'
 import TrackOrderModal from './components/TrackOrderModal'
+import AdminPortal from './components/AdminPortal'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
 import { CheckCircle2, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react'
 
 function StoreContent() {
-  const { setActiveCategory } = useStore()
+  const { setActiveCategory, setIsAdminOpen } = useStore()
   const catalogRef = useRef(null)
+
+  // Secret Owner Triggers (Ctrl + Shift + A, and #admin hash)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault()
+        setIsAdminOpen(true)
+      }
+    }
+    const checkHash = () => {
+      if (window.location.hash === '#admin' || window.location.hash === '#portal') {
+        setIsAdminOpen(true)
+      }
+    }
+    checkHash()
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('hashchange', checkHash)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('hashchange', checkHash)
+    }
+  }, [setIsAdminOpen])
 
   const scrollToCatalog = (cat) => {
     if (cat && cat !== 'All') {
@@ -51,6 +74,9 @@ function StoreContent() {
 
       {/* Atelier Order Tracking Modal */}
       <TrackOrderModal />
+
+      {/* Secret Owner Admin Management Portal (Hidden unless triggered by owner) */}
+      <AdminPortal />
 
       {/* Top Luxury Announcement Bar */}
       <AnnouncementBar />

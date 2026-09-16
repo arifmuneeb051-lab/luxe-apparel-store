@@ -17,10 +17,24 @@ export default function Navbar() {
     setIsAuthModalOpen,
     setAuthModalMode,
     setIsProfileOpen,
+    setIsAdminOpen,
     setIsTrackOrderOpen
   } = useStore()
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [logoClicks, setLogoClicks] = useState(0)
+
+  const handleLogoClick = () => {
+    setActiveGender('All')
+    const count = logoClicks + 1
+    if (count >= 4) {
+      setIsAdminOpen(true)
+      setLogoClicks(0)
+    } else {
+      setLogoClicks(count)
+      setTimeout(() => setLogoClicks(0), 3000)
+    }
+  }
 
   const navLinks = [
     { label: 'ALL COLLECTIONS', value: 'All' },
@@ -56,7 +70,7 @@ export default function Navbar() {
             </button>
 
             <div
-              onClick={() => setActiveGender('All')}
+              onClick={handleLogoClick}
               className="flex items-center gap-2.5 cursor-pointer group"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#F5E6B3] flex items-center justify-center text-black font-serif font-bold text-base shadow-md group-hover:scale-105 transition-transform duration-300 flex-shrink-0">

@@ -125,20 +125,35 @@ export default function UserProfileModal() {
               )}
             </div>
 
-            {/* Sign Out Button */}
-            <div className="pt-4 border-t border-[#222222] flex items-center justify-between">
+            {/* Action Buttons */}
+            <div className="pt-4 border-t border-[#222222] flex flex-wrap items-center justify-between gap-3">
               <span className="text-[11px] text-[#666666] flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Protected by Luxe Atelier Security</span>
               </span>
 
-              <button
-                onClick={logout}
-                className="px-5 py-2.5 rounded-lg bg-[#181818] hover:bg-red-950/40 hover:border-red-500/50 border border-[#333333] text-xs text-red-400 font-semibold tracking-wider uppercase transition flex items-center gap-2"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>SIGN OUT</span>
-              </button>
+              <div className="flex items-center gap-2">
+                {(currentUser.email === 'arifmuneeb81@gmail.com' || currentUser.role === 'admin') && (
+                  <button
+                    onClick={() => {
+                      setIsProfileOpen(false)
+                      setIsAdminOpen(true)
+                    }}
+                    className="px-4 py-2.5 rounded-lg bg-[#D4AF37] hover:bg-[#B38F22] text-black font-bold text-xs tracking-wider uppercase transition flex items-center gap-1.5 shadow-lg shadow-[#D4AF37]/20"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>OWNER CONSOLE</span>
+                  </button>
+                )}
+
+                <button
+                  onClick={logout}
+                  className="px-5 py-2.5 rounded-lg bg-[#181818] hover:bg-red-950/40 hover:border-red-500/50 border border-[#333333] text-xs text-red-400 font-semibold tracking-wider uppercase transition flex items-center gap-2"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>SIGN OUT</span>
+                </button>
+              </div>
             </div>
 
           </div>
