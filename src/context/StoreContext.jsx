@@ -220,6 +220,7 @@ export function StoreProvider({ children }) {
 
   // Modals & Navigation States
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [isAdminOpen, setIsAdminOpen] = useState(false)
@@ -808,6 +809,8 @@ export function StoreProvider({ children }) {
         wishlistCount,
         isCartOpen,
         setIsCartOpen,
+        isWishlistOpen,
+        setIsWishlistOpen,
         selectedProduct,
         setSelectedProduct,
         isCheckoutOpen,

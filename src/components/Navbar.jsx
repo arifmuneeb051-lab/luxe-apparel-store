@@ -17,24 +17,11 @@ export default function Navbar() {
     setIsAuthModalOpen,
     setAuthModalMode,
     setIsProfileOpen,
-    setIsAdminOpen,
+    setIsWishlistOpen,
     setIsTrackOrderOpen
   } = useStore()
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [logoClicks, setLogoClicks] = useState(0)
-
-  const handleLogoClick = () => {
-    setActiveGender('All')
-    const count = logoClicks + 1
-    if (count >= 4) {
-      setIsAdminOpen(true)
-      setLogoClicks(0)
-    } else {
-      setLogoClicks(count)
-      setTimeout(() => setLogoClicks(0), 3000)
-    }
-  }
 
   const navLinks = [
     { label: 'ALL COLLECTIONS', value: 'All' },
@@ -70,7 +57,7 @@ export default function Navbar() {
             </button>
 
             <div
-              onClick={handleLogoClick}
+              onClick={() => setActiveGender('All')}
               className="flex items-center gap-2.5 cursor-pointer group"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#F5E6B3] flex items-center justify-center text-black font-serif font-bold text-base shadow-md group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
@@ -121,8 +108,10 @@ export default function Navbar() {
 
             {/* Wishlist */}
             <button
+              onClick={() => setIsWishlistOpen(true)}
               className="p-2 text-[#CCCCCC] hover:text-[#D4AF37] transition relative"
               aria-label="Wishlist"
+              title="Atelier Wishlist"
             >
               <Heart className="w-5 h-5" />
               {wishlistCount > 0 && (
@@ -302,9 +291,27 @@ export default function Navbar() {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false)
+                    setIsWishlistOpen(true)
+                  }}
+                  className="text-left text-xs tracking-widest uppercase py-2 text-[#CCCCCC] hover:text-[#D4AF37] flex items-center justify-between pt-4 border-t border-[#222222]"
+                >
+                  <div className="flex items-center gap-2">
+                    <Heart className="w-4 h-4 text-[#D4AF37]" />
+                    <span>Atelier Wishlist</span>
+                  </div>
+                  {wishlistCount > 0 && (
+                    <span className="px-2 py-0.5 text-[9px] bg-[#D4AF37] text-black font-bold rounded-full">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false)
                     setIsTrackOrderOpen(true)
                   }}
-                  className="text-left text-xs tracking-widest uppercase py-2 text-[#CCCCCC] hover:text-[#D4AF37] flex items-center gap-2 pt-4 border-t border-[#222222]"
+                  className="text-left text-xs tracking-widest uppercase py-2 text-[#CCCCCC] hover:text-[#D4AF37] flex items-center gap-2"
                 >
                   <Truck className="w-4 h-4 text-[#D4AF37]" />
                   <span>Track Consignment / Orders</span>
